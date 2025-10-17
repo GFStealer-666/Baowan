@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ad50d7581a38084cb256d0e2ed75bba, type: 3}
+  m_Name: yam_moo_krop
+  m_EditorClassIdentifier: 
+  foodNameTH: "\u0E22\u0E33\u0E2B\u0E21\u0E39\u0E01\u0E23\u0E2D\u0E1A"
+  foodNameEN: Yam Moo Krop
+  consumeType: 5
+  foodImage: {fileID: 0}
+  glycemicIndex: 25
+  glycemicLoad: 5
+  calories: 300
+  totalFat: 15
+  cholesterol: 80
+  sodium: 850
+  carbohydrate: 8
+  protein: 15

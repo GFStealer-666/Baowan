@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ad50d7581a38084cb256d0e2ed75bba, type: 3}
+  m_Name: larb_moo
+  m_EditorClassIdentifier: 
+  foodNameTH: "\u0E25\u0E32\u0E1A\u0E2B\u0E21\u0E39"
+  foodNameEN: Larb Moo
+  consumeType: 5
+  foodImage: {fileID: 0}
+  glycemicIndex: 50
+  glycemicLoad: 10
+  calories: 350
+  totalFat: 9
+  cholesterol: 60
+  sodium: 800
+  carbohydrate: 10
+  protein: 20

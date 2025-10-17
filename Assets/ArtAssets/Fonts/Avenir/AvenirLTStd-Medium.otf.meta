@@ -1,0 +1,30 @@
+fileFormatVersion: 2
+guid: 0e46cee92d0654d479e8f399c46f29cd
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Avenir LT Std
+  fontNames:
+  - Avenir LT Std
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 184010
+  packageName: Universal Pop Up (Message Box, Loading, Calendar Picker, Date Picker
+    etc.)
+  packageVersion: 1.0
+  assetPath: Assets/ArtAssets/Fonts/Avenir/AvenirLTStd-Medium.otf
+  uploadId: 405416

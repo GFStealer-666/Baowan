@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ad50d7581a38084cb256d0e2ed75bba, type: 3}
+  m_Name: kuaitiao_tom_yum_moo
+  m_EditorClassIdentifier: 
+  foodNameTH: "\u0E01\u0E4B\u0E27\u0E22\u0E40\u0E15\u0E35\u0E4B\u0E22\u0E27\u0E15\u0E49\u0E21\u0E22\u0E33\u0E2B\u0E21\u0E39"
+  foodNameEN: Kuaitiao Tom Yum Moo
+  consumeType: 1
+  foodImage: {fileID: 0}
+  glycemicIndex: 50
+  glycemicLoad: 20
+  calories: 340
+  totalFat: 7
+  cholesterol: 70
+  sodium: 1100
+  carbohydrate: 45
+  protein: 15

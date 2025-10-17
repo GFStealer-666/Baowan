@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 19775cae601abf143b02800a0a722d29
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 184010
+  packageName: Universal Pop Up (Message Box, Loading, Calendar Picker, Date Picker
+    etc.)
+  packageVersion: 1.0
+  assetPath: Assets/ArtAssets/Loading/AnimatedLoading/LoadingAnimation.controller
+  uploadId: 405416

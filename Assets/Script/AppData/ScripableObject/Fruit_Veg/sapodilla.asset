@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ad50d7581a38084cb256d0e2ed75bba, type: 3}
+  m_Name: sapodilla
+  m_EditorClassIdentifier: 
+  foodNameTH: "\u0E25\u0E30\u0E21\u0E38\u0E14"
+  foodNameEN: Sapodilla
+  consumeType: 3
+  foodImage: {fileID: 0}
+  glycemicIndex: 47
+  glycemicLoad: 10
+  calories: 83
+  totalFat: 0.6
+  cholesterol: 0
+  sodium: 2
+  carbohydrate: 22
+  protein: 0.4

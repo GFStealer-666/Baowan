@@ -1,0 +1,28 @@
+Easy to use Universal Popups with Messagbox, Loading and Calendar Picker.
+Works in all platform.
+
+-----------------------------------------------------------------------------------
+Universal PopUp OK/Cancel with message box and mode.
+
+1. Universal PopUp Ok/Cancel with auto adjusting size base on message length
+2. Universal PopUp Ok/Cancel & Cancel with auto adjusting size base on message length
+3. Message box has 3 display mode, Normal, Warning and Error.
+
+Universal Loading 
+
+1. Whole screen loading, feel free change the assets/sprites. with loading animation(feel free to change this too)
+2. Loading with message and ellipsis animation. you can input the message you want (i.e Deleting...)
+
+Calendar PopUps
+
+1. calendar Picker - Select the date you want to use.
+2. Birthday Picker
+
+----------------------------BONUS-------------------------------------------------------
+
+Universal Typer for DropDown Menus, you can jsut set (monthyly, daily, gender, etc....)
+Extension method for DateTime to display Month Name in both short and whole formal (Jan/January etc...)
+
+-----------------------------------------------------------------------------------
+
+Just make sure UICanvas and EventSystem exist in the scene

@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ad50d7581a38084cb256d0e2ed75bba, type: 3}
+  m_Name: kuaitiao_nam_tok_nuea
+  m_EditorClassIdentifier: 
+  foodNameTH: "\u0E01\u0E4B\u0E27\u0E22\u0E40\u0E15\u0E35\u0E4B\u0E22\u0E27\u0E19\u0E49\u0E33\u0E15\u0E01\u0E40\u0E19\u0E37\u0E49\u0E2D"
+  foodNameEN: Kuaitiao Nam Tok Nuea
+  consumeType: 1
+  foodImage: {fileID: 0}
+  glycemicIndex: 50
+  glycemicLoad: 18
+  calories: 310
+  totalFat: 7
+  cholesterol: 75
+  sodium: 1000
+  carbohydrate: 40
+  protein: 18

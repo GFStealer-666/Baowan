@@ -6,13 +6,15 @@ using Firebase.Auth;
 using Firebase.Firestore;
 using UnityEngine;
 
+
+// Dupe class use AuthService in Backend folder instead
 public sealed class FirebaseAuthService : IAuthService
 {
     private FirebaseAuth _auth;
     public FirebaseAuthService(FirebaseAuth auth) { _auth = auth; }
-
+    
     public string CurrentUserId => _auth?.CurrentUser?.UserId;
-    public string CurrentEmail  => _auth?.CurrentUser?.Email;
+    public string CurrentEmail => _auth?.CurrentUser?.Email;
 
     public async Task<(bool ok, string err)> RegisterAsync(string email, string password)
     {
@@ -25,11 +27,11 @@ public sealed class FirebaseAuthService : IAuthService
         {
             switch (fex.ErrorCode)
             {
-                case (int) AuthError.EmailAlreadyInUse:
+                case (int)AuthError.EmailAlreadyInUse:
                     return (false, "This email is already registered.");
-                case (int) AuthError.InvalidEmail:
+                case (int)AuthError.InvalidEmail:
                     return (false, "Please enter a valid email.");
-                case (int) AuthError.WeakPassword:
+                case (int)AuthError.WeakPassword:
                     return (false, "Password is too weak (min 6 chars).");
                 default:
                     return (false, $"[{fex.ErrorCode}] {fex.Message}");
@@ -43,9 +45,44 @@ public sealed class FirebaseAuthService : IAuthService
 
     public async Task<(bool ok, string err)> LoginAsync(string email, string password)
     {
-        try { await _auth.SignInWithEmailAndPasswordAsync(email, password); return (true, null); }
-        catch (Exception ex) { return (false, ex.Message); }
+        try
+        {
+            await FirebaseReady.Ensure();
+
+            email = EmailFormatter.CleanEmail(email);
+            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
+                return (false, "Email and password required.");
+
+            var result = await FirebaseAuth.DefaultInstance.SignInWithEmailAndPasswordAsync(email, password);
+            // optional: await result.User.ReloadAsync();
+            return (true, null);
+        }
+        catch (FirebaseException fex)
+        {
+            var code = (AuthError)fex.ErrorCode;  // <-- key line
+            Debug.LogError($"[Auth] Login failed: {code} ({fex.ErrorCode})\n{fex}");
+
+            string msg = code switch
+            {
+                AuthError.InvalidEmail => "Email format is invalid.",
+                AuthError.MissingEmail => "Please enter your email.",
+                AuthError.MissingPassword => "Please enter your password.",
+                AuthError.WrongPassword => "Wrong password.",
+                AuthError.UserNotFound => "No account found with this email.",
+                AuthError.NetworkRequestFailed => "Network error. Check your internet and try again.",
+                AuthError.TooManyRequests => "Too many attempts. Please wait and try again.",
+                AuthError.OperationNotAllowed => "Email/password sign-in is disabled in Firebase console.",
+                _ => "Sign-in failed. Please try again."
+            };
+            return (false, msg);
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError(ex);
+            return (false, "Unexpected error. Please try again.");
+        }
     }
+
 
     public Task<(bool ok, string err)> SendPasswordResetAsync(string email)
         => Try(async () => await _auth.SendPasswordResetEmailAsync(email));

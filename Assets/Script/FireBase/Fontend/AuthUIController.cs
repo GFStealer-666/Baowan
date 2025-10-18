@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class AuthUIController : MonoBehaviour
 {
-    // assign TMP fields in Inspector (same as before)...
+    // registering side.
     public TMP_InputField nameInput, emailInput, phoneInput, passwordInput;
     public TMP_InputField ageInput, weightInput, heightInput, careerInput, glucoseInput;
     public TMP_Text statusText;
@@ -36,6 +36,7 @@ public class AuthUIController : MonoBehaviour
         // NOW create the profile document
         try
         {
+            Debug.Log($"[AuthUIController] Before EnsureProfile: DefaultAuthUid={Firebase.Auth.FirebaseAuth.DefaultInstance.CurrentUser?.UserId} createdUserUid={user.UserId}");
             await UserProfileService.Instance.EnsureProfile(user, name, phone);
             Debug.Log("EnsureProfile DONE");
         }

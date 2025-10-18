@@ -11,7 +11,6 @@ public class AuthService : MonoBehaviour
     public FirebaseUser CurrentUser => Auth?.CurrentUser;
 
     public static event Action OnSignOut;
-
     void Awake()
     {
         if (Instance != null) { Destroy(gameObject); return; }
@@ -23,8 +22,22 @@ public class AuthService : MonoBehaviour
     {
         await Services.InitAsync();
         Auth = FirebaseAuth.DefaultInstance;
+        Auth.IdTokenChanged += async (s, e) =>
+        {
+            var u = Auth.CurrentUser;
+            if (u == null) return;
 
-        // Try silent login (if persisted)
+            try
+            {
+                // Force a fresh token; this event may fire before Firestore is ready.
+                await u.TokenAsync(true);
+                await UserProfileService.Instance.EnsureProfile(u);
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError("[Auth] EnsureProfile after IdTokenChanged failed: " + ex);
+            }
+        };
         Auth.StateChanged += OnAuthStateChanged;
         OnAuthStateChanged(this, null);
     }
@@ -69,8 +82,16 @@ public class AuthService : MonoBehaviour
             var result = await FirebaseAuth.DefaultInstance.CreateUserWithEmailAndPasswordAsync(email, password);
             var user = result.User;
 
-            // Optional profile update here...
-            // await user.UpdateUserProfileAsync(new UserProfile { DisplayName = ... });
+            // Wait for the Auth system to report the newly-created user as the current user
+            var start = Time.realtimeSinceStartup;
+            while (FirebaseAuth.DefaultInstance.CurrentUser?.UserId != user.UserId)
+            {
+                await System.Threading.Tasks.Task.Yield();
+                if ((Time.realtimeSinceStartup - start) * 1000f > 5000f) break;
+            }
+
+            // Force refresh token so Firestore receives credentials
+            try { await user.TokenAsync(true); } catch (Exception ex) { Debug.LogWarning("Token refresh after register failed: " + ex); }
 
             return (true, user, null);
         }
@@ -85,10 +106,32 @@ public class AuthService : MonoBehaviour
     {
         try
         {
-            await Auth.SignInWithEmailAndPasswordAsync(email, password);
+            await FirebaseReady.Ensure();
+            email = (email ?? "").Trim().Replace("\r","").Replace("\n","");
+            password = password ?? "";
+
+            var result = await FirebaseAuth.DefaultInstance
+                .SignInWithEmailAndPasswordAsync(email, password);
             return (true, null);
         }
-        catch (Exception ex) { return (false, ParseFirebaseError(ex)); }
+        catch (FirebaseException fex)
+        {
+            var code = (AuthError)fex.ErrorCode;
+            Debug.LogError($"[Auth] Login failed: {code} ({fex.ErrorCode}) {fex.Message}");
+
+            string msg = code switch
+            {
+                AuthError.InvalidEmail          => "Email format is invalid.",
+                AuthError.MissingEmail          => "Please enter your email.",
+                AuthError.MissingPassword       => "Please enter your password.",
+                AuthError.WrongPassword         => "Wrong password.",
+                AuthError.UserNotFound          => "No account found with this email.",
+                AuthError.NetworkRequestFailed  => "Network error. Try another network.",
+                AuthError.OperationNotAllowed   => "Email/password sign-in is disabled in Firebase.",
+                _ => "Sign-in failed. Please try again."
+            };
+            return (false, msg);
+        }
     }
 
     public async Task<(bool ok, string err)> SendPasswordReset(string email)

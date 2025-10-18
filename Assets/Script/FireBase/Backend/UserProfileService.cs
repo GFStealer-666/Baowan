@@ -27,8 +27,21 @@ public class UserProfileService : MonoBehaviour
             if ((Time.realtimeSinceStartup - start) * 1000 > timeoutMs)
                 throw new System.TimeoutException("Auth user not ready.");
         }
-        // Force-get an ID token (ensures Firestore has credentials)
-        await expectedUser.TokenAsync(false);
+        // Force-refresh an ID token (ensures Firestore has fresh credentials).
+        // Use true to force refresh so we get the latest token that includes the signed-in state.
+        try
+        {
+            var token = await expectedUser.TokenAsync(true);
+            Debug.Log("[UserProfileService] Token acquired length=" + (token?.Length ?? 0));
+        }
+        catch (Exception ex)
+        {
+            Debug.LogWarning("[UserProfileService] TokenAsync(true) failed: " + ex);
+            // continue - we still might have a token via DefaultInstance
+        }
+
+        // Small delay to allow any auth state propagation to the Firestore client
+        await System.Threading.Tasks.Task.Delay(100);
     }
     private static async Task<FirebaseFirestore> GetDbAsync()
     {
@@ -45,18 +58,26 @@ public class UserProfileService : MonoBehaviour
     public async Task EnsureProfile(FirebaseUser user, string displayName = null, string phone = null)
     {
         if (user == null) throw new InvalidOperationException("EnsureProfile: user is null");
-
-        // get ready Firestore each time (avoids Start() race)
         await FirebaseReady.Ensure();
+
+        // Be explicit: wait until Auth.CurrentUser is the same and token refreshed.
+        var start = Time.realtimeSinceStartup;
+        while (FirebaseAuth.DefaultInstance.CurrentUser?.UserId != user.UserId)
+        {
+            await Task.Yield();
+            if ((Time.realtimeSinceStartup - start) > 8f)
+                throw new TimeoutException("Auth user not ready for Firestore.");
+        }
+
+        try { await user.TokenAsync(true); } catch (Exception ex) { Debug.LogWarning("[UserProfileService] Token refresh: " + ex); }
+        await Task.Delay(250); // give Firestore client a moment to pick up creds
+
         var db  = FirebaseFirestore.DefaultInstance;
         var doc = db.Collection("users").Document(user.UserId);
 
-        var snap = await doc.GetSnapshotAsync();
-        if (snap.Exists) return;
-
         var data = new Dictionary<string, object>
         {
-            { "uid", user.UserId },                                // required by your rules
+            { "uid", user.UserId },
             { "displayName", string.IsNullOrWhiteSpace(displayName) ? "Player" : displayName },
             { "email", user.Email ?? "" },
             { "phone", phone ?? "" },
@@ -64,9 +85,32 @@ public class UserProfileService : MonoBehaviour
             { "createdAt", FieldValue.ServerTimestamp },
             { "updatedAt", FieldValue.ServerTimestamp }
         };
-        await doc.SetAsync(data, SetOptions.MergeAll);
-        Debug.Log("[Profile] Created /users/" + user.UserId);
+
+        // Retry with backoff only around the WRITE
+        int attempts = 0;
+        int[] waits = { 200, 400, 800, 1500 };
+        while (true)
+        {
+            attempts++;
+            try
+            {
+                Debug.Log($"[UserProfileService] Set /users/{user.UserId} attempt {attempts}");
+                await doc.SetAsync(data, SetOptions.MergeAll);  // <-- creates if missing, updates if exists
+                Debug.Log("[Profile] Upserted /users/" + user.UserId);
+                break;
+            }
+            catch (Firebase.Firestore.FirestoreException fex)
+                when ((fex.ErrorCode == Firebase.Firestore.FirestoreError.PermissionDenied ||
+                    fex.ErrorCode == Firebase.Firestore.FirestoreError.Unauthenticated)
+                    && attempts <= waits.Length)
+            {
+                Debug.LogWarning($"[UserProfileService] {fex.ErrorCode} on SetAsync attempt {attempts}. Backing off {waits[attempts-1]}ms.\n{fex}");
+                try { await user.TokenAsync(true); } catch { }
+                await System.Threading.Tasks.Task.Delay(waits[attempts-1]);
+            }
+        }
     }
+
 
     public async Task SaveProfileFields(string uid, UserProfile p)
     {

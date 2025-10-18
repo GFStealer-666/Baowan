@@ -15,7 +15,7 @@ MonoBehaviour:
   foodNameTH: "\u0E40\u0E07\u0E32\u0E30"
   foodNameEN: Rambutan
   consumeType: 3
-  foodImage: {fileID: 0}
+  foodImage: {fileID: 21300000, guid: 9bdff6d332a9f204d973b6cb7c8d40b2, type: 3}
   glycemicIndex: 59
   glycemicLoad: 12
   calories: 68

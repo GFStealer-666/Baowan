@@ -15,7 +15,7 @@ MonoBehaviour:
   foodNameTH: "\u0E19\u0E49\u0E33\u0E21\u0E30\u0E19\u0E32\u0E27"
   foodNameEN: Lemon Juice
   consumeType: 2
-  foodImage: {fileID: 0}
+  foodImage: {fileID: 21300000, guid: 47b366159f1db5644aa2ee7e9dbd8f7e, type: 3}
   glycemicIndex: 46
   glycemicLoad: 4
   calories: 25

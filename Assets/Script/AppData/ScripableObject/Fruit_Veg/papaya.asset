@@ -15,7 +15,7 @@ MonoBehaviour:
   foodNameTH: "\u0E21\u0E30\u0E25\u0E30\u0E01\u0E2D\u0E2A\u0E38\u0E01"
   foodNameEN: Papaya
   consumeType: 3
-  foodImage: {fileID: 0}
+  foodImage: {fileID: 21300000, guid: c2b333d6067fcf1449bbb5b9806ee2c4, type: 3}
   glycemicIndex: 60
   glycemicLoad: 8
   calories: 43

@@ -15,7 +15,7 @@ MonoBehaviour:
   foodNameTH: "\u0E22\u0E33\u0E17\u0E30\u0E40\u0E25\u0E23\u0E27\u0E21"
   foodNameEN: Yam Thale Ruam
   consumeType: 5
-  foodImage: {fileID: 0}
+  foodImage: {fileID: 21300000, guid: dd6f827b3c6af924d9aa119c54d1928d, type: 3}
   glycemicIndex: 30
   glycemicLoad: 5
   calories: 220

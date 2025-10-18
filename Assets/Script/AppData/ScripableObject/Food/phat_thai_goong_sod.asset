@@ -15,7 +15,7 @@ MonoBehaviour:
   foodNameTH: "\u0E1C\u0E31\u0E14\u0E44\u0E17\u0E22\u0E01\u0E38\u0E49\u0E07\u0E2A\u0E14"
   foodNameEN: Phat Thai Goong Sod
   consumeType: 1
-  foodImage: {fileID: 0}
+  foodImage: {fileID: 21300000, guid: d2694f28a0c441247ae703ce8d0774d0, type: 3}
   glycemicIndex: 55
   glycemicLoad: 30
   calories: 450

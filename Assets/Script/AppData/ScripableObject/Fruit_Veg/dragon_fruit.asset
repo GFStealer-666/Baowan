@@ -15,7 +15,7 @@ MonoBehaviour:
   foodNameTH: "\u0E41\u0E01\u0E49\u0E27\u0E21\u0E31\u0E07\u0E01\u0E23"
   foodNameEN: Dragon Fruit
   consumeType: 3
-  foodImage: {fileID: 0}
+  foodImage: {fileID: 21300000, guid: 34b88024807c8c340a53c3701c6768e7, type: 3}
   glycemicIndex: 37
   glycemicLoad: 5
   calories: 50

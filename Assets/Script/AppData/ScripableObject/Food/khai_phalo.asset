@@ -15,7 +15,7 @@ MonoBehaviour:
   foodNameTH: "\u0E44\u0E02\u0E48\u0E1E\u0E30\u0E42\u0E25\u0E49"
   foodNameEN: Khai Phalo
   consumeType: 5
-  foodImage: {fileID: 0}
+  foodImage: {fileID: 21300000, guid: 1487c2ee905d5874896623d3b8727683, type: 3}
   glycemicIndex: 30
   glycemicLoad: 5
   calories: 200

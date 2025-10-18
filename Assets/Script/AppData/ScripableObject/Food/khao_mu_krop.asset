@@ -15,7 +15,7 @@ MonoBehaviour:
   foodNameTH: "\u0E02\u0E49\u0E32\u0E27\u0E2B\u0E21\u0E39\u0E01\u0E23\u0E2D\u0E1A"
   foodNameEN: Khao Mu Krop
   consumeType: 0
-  foodImage: {fileID: 0}
+  foodImage: {fileID: 21300000, guid: bf132a0665e66a14489ea0776789e56d, type: 3}
   glycemicIndex: 65
   glycemicLoad: 35
   calories: 650

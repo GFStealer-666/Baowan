@@ -15,7 +15,7 @@ MonoBehaviour:
   foodNameTH: "\u0E17\u0E38\u0E40\u0E23\u0E35\u0E22\u0E19"
   foodNameEN: Durian
   consumeType: 3
-  foodImage: {fileID: 0}
+  foodImage: {fileID: 21300000, guid: 26b0e5bbbe956e249bfdcdd0891805df, type: 3}
   glycemicIndex: 55
   glycemicLoad: 18
   calories: 147

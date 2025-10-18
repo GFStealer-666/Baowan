@@ -15,7 +15,7 @@ MonoBehaviour:
   foodNameTH: "\u0E01\u0E4B\u0E27\u0E22\u0E40\u0E15\u0E35\u0E4B\u0E22\u0E27\u0E2B\u0E25\u0E2D\u0E14\u0E17\u0E23\u0E07\u0E40\u0E04\u0E23\u0E37\u0E48\u0E2D\u0E07"
   foodNameEN: Kuaitiao Lot Songkrueng
   consumeType: 1
-  foodImage: {fileID: 0}
+  foodImage: {fileID: 21300000, guid: 8854ae02c07ad8d4f94abda243d9dd89, type: 3}
   glycemicIndex: 50
   glycemicLoad: 20
   calories: 300

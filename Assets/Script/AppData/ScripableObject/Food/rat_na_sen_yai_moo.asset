@@ -15,7 +15,7 @@ MonoBehaviour:
   foodNameTH: "\u0E23\u0E32\u0E14\u0E2B\u0E19\u0E49\u0E32\u0E40\u0E2A\u0E49\u0E19\u0E43\u0E2B\u0E0D\u0E48\u0E2B\u0E21\u0E39"
   foodNameEN: Rat Na Sen Yai Moo
   consumeType: 1
-  foodImage: {fileID: 0}
+  foodImage: {fileID: 21300000, guid: 1210c056399e25d498b93ed563b2b43b, type: 3}
   glycemicIndex: 60
   glycemicLoad: 30
   calories: 480

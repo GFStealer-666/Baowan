@@ -15,7 +15,7 @@ MonoBehaviour:
   foodNameTH: "\u0E19\u0E49\u0E33\u0E2D\u0E07\u0E38\u0E48\u0E19"
   foodNameEN: Grape Juice
   consumeType: 2
-  foodImage: {fileID: 0}
+  foodImage: {fileID: 21300000, guid: 572b9a244d1c1ea4faebadb923abdd13, type: 3}
   glycemicIndex: 59
   glycemicLoad: 21
   calories: 70

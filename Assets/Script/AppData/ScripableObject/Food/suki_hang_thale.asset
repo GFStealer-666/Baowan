@@ -15,7 +15,7 @@ MonoBehaviour:
   foodNameTH: "\u0E2A\u0E38\u0E01\u0E35\u0E49\u0E41\u0E2B\u0E49\u0E07\u0E17\u0E30\u0E40\u0E25"
   foodNameEN: Suki Hang Thale
   consumeType: 1
-  foodImage: {fileID: 0}
+  foodImage: {fileID: 21300000, guid: 4dc05f11bd77ca64b8a4ed206ebd89be, type: 3}
   glycemicIndex: 50
   glycemicLoad: 20
   calories: 400

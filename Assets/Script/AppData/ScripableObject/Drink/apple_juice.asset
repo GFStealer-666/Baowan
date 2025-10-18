@@ -15,7 +15,7 @@ MonoBehaviour:
   foodNameTH: "\u0E19\u0E49\u0E33\u0E41\u0E2D\u0E1B\u0E40\u0E1B\u0E34\u0E25"
   foodNameEN: Apple Juice
   consumeType: 2
-  foodImage: {fileID: 0}
+  foodImage: {fileID: 21300000, guid: c2f4f151ed3ae714693d33a8b3152f5f, type: 3}
   glycemicIndex: 41
   glycemicLoad: 12
   calories: 50

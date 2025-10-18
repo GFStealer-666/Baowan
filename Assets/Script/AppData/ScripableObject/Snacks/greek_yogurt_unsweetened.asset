@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   snackNameTH: "\u0E42\u0E22\u0E40\u0E01\u0E34\u0E23\u0E4C\u0E15 Greek Yogurt \u0E41\u0E1A\u0E1A\u0E44\u0E21\u0E48\u0E2B\u0E27\u0E32\u0E19"
   snackNameEN: Greek Yogurt (Unsweetened)
-  image: {fileID: 0}
+  image: {fileID: 21300000, guid: 0d75750be8faec84088e40c0d37b02f0, type: 3}
   ingredient: "\u0E42\u0E22\u0E40\u0E01\u0E34\u0E23\u0E4C\u0E15\u0E23\u0E2A\u0E18\u0E23\u0E23\u0E21\u0E0A\u0E32\u0E15\u0E34
     1 \u0E16\u0E49\u0E27\u0E22"
   method: "\u0E41\u0E0A\u0E48\u0E40\u0E22\u0E47\u0E19\u0E1E\u0E23\u0E49\u0E2D\u0E21\u0E40\u0E2A\u0E34\u0E23\u0E4C\u0E1F

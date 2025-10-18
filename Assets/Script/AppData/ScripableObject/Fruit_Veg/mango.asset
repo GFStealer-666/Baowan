@@ -15,7 +15,7 @@ MonoBehaviour:
   foodNameTH: "\u0E21\u0E30\u0E21\u0E48\u0E27\u0E07"
   foodNameEN: Mango
   consumeType: 3
-  foodImage: {fileID: 0}
+  foodImage: {fileID: 21300000, guid: f29656749ff26b34ea9f059490c60d98, type: 3}
   glycemicIndex: 56
   glycemicLoad: 8
   calories: 60

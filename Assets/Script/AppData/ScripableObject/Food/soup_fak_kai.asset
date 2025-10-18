@@ -15,7 +15,7 @@ MonoBehaviour:
   foodNameTH: "\u0E0B\u0E38\u0E1B\u0E1F\u0E31\u0E01\u0E44\u0E01\u0E48"
   foodNameEN: Soup Fak Kai
   consumeType: 5
-  foodImage: {fileID: 0}
+  foodImage: {fileID: 21300000, guid: 9666317dc207d7e4aa7df90e5f08e55d, type: 3}
   glycemicIndex: 30
   glycemicLoad: 3
   calories: 160

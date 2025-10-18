@@ -77,6 +77,6 @@ public class FoodListController : MonoBehaviour
 
     void OnRowClicked(FoodDataSO f)
     {
-        if (detailView) detailView.Show(f);
+        //if (detailView) detailView.Show(f);
     }
 }

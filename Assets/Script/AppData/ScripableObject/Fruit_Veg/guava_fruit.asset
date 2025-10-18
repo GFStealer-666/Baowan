@@ -15,7 +15,7 @@ MonoBehaviour:
   foodNameTH: "\u0E1D\u0E23\u0E31\u0E48\u0E07"
   foodNameEN: Guava (fruit)
   consumeType: 3
-  foodImage: {fileID: 0}
+  foodImage: {fileID: 21300000, guid: a070b473ae34b2244b0c75faec0dec88, type: 3}
   glycemicIndex: 50
   glycemicLoad: 9
   calories: 59

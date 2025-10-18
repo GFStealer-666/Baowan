@@ -15,7 +15,7 @@ MonoBehaviour:
   foodNameTH: "\u0E1B\u0E25\u0E32\u0E19\u0E36\u0E48\u0E07\u0E21\u0E30\u0E19\u0E32\u0E27"
   foodNameEN: Pla Nueng Manao
   consumeType: 5
-  foodImage: {fileID: 0}
+  foodImage: {fileID: 21300000, guid: 036ec18ce43fef94982d6dc32d9c8a28, type: 3}
   glycemicIndex: 0
   glycemicLoad: 0
   calories: 200

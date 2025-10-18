@@ -15,7 +15,7 @@ MonoBehaviour:
   foodNameTH: "\u0E02\u0E49\u0E32\u0E27\u0E2B\u0E21\u0E39\u0E01\u0E23\u0E30\u0E40\u0E17\u0E35\u0E22\u0E21"
   foodNameEN: Khao Moo Kratiem
   consumeType: 0
-  foodImage: {fileID: 0}
+  foodImage: {fileID: 21300000, guid: 79ea0fcfe40173e469dc15f418d94f79, type: 3}
   glycemicIndex: 65
   glycemicLoad: 32
   calories: 520

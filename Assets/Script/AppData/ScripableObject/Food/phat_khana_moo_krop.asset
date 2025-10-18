@@ -16,7 +16,7 @@ MonoBehaviour:
     (\u0E23\u0E32\u0E14\u0E19\u0E49\u0E2D\u0E22)"
   foodNameEN: Phat Khana Moo Krop
   consumeType: 5
-  foodImage: {fileID: 0}
+  foodImage: {fileID: 21300000, guid: 1dc67f1c7532fd0468842621e27d62a3, type: 3}
   glycemicIndex: 55
   glycemicLoad: 15
   calories: 380

@@ -15,7 +15,7 @@ MonoBehaviour:
   foodNameTH: "\u0E02\u0E49\u0E32\u0E27\u0E2B\u0E19\u0E49\u0E32\u0E40\u0E1B\u0E47\u0E14"
   foodNameEN: Khao Na Ped
   consumeType: 0
-  foodImage: {fileID: 0}
+  foodImage: {fileID: 21300000, guid: e09f7b6c06df7aa469acc7918c9be0d9, type: 3}
   glycemicIndex: 65
   glycemicLoad: 35
   calories: 580

@@ -15,7 +15,7 @@ MonoBehaviour:
   foodNameTH: "\u0E22\u0E33\u0E1B\u0E25\u0E32\u0E14\u0E38\u0E01\u0E1F\u0E39"
   foodNameEN: Yam Pla Dook Foo
   consumeType: 5
-  foodImage: {fileID: 0}
+  foodImage: {fileID: 21300000, guid: 9ec0ff1bc88306d469929933fc7d562a, type: 3}
   glycemicIndex: 35
   glycemicLoad: 5
   calories: 350

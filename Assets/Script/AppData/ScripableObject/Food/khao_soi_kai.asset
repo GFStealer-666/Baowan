@@ -15,7 +15,7 @@ MonoBehaviour:
   foodNameTH: "\u0E02\u0E49\u0E32\u0E27\u0E0B\u0E2D\u0E22\u0E44\u0E01\u0E48"
   foodNameEN: Khao Soi Kai
   consumeType: 1
-  foodImage: {fileID: 0}
+  foodImage: {fileID: 21300000, guid: fba5578948297654492a18f635a9354f, type: 3}
   glycemicIndex: 60
   glycemicLoad: 32
   calories: 550

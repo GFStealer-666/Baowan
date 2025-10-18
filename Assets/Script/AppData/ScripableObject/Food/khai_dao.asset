@@ -15,7 +15,7 @@ MonoBehaviour:
   foodNameTH: "\u0E44\u0E02\u0E48\u0E14\u0E32\u0E27"
   foodNameEN: Khai Dao
   consumeType: 5
-  foodImage: {fileID: 0}
+  foodImage: {fileID: 21300000, guid: d4d45c07d3220604cbcd2c6f023ccc85, type: 3}
   glycemicIndex: 0
   glycemicLoad: 0
   calories: 90

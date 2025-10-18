@@ -15,7 +15,7 @@ MonoBehaviour:
   foodNameTH: "\u0E19\u0E49\u0E33\u0E2A\u0E49\u0E21\u0E04\u0E31\u0E49\u0E19\u0E2A\u0E14"
   foodNameEN: Orange Juice
   consumeType: 2
-  foodImage: {fileID: 0}
+  foodImage: {fileID: 21300000, guid: d418780665f27d14a81848fe4ed47b27, type: 3}
   glycemicIndex: 50
   glycemicLoad: 11
   calories: 45

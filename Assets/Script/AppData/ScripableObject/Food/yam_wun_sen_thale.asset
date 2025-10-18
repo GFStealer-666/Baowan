@@ -15,7 +15,7 @@ MonoBehaviour:
   foodNameTH: "\u0E22\u0E33\u0E27\u0E38\u0E49\u0E19\u0E40\u0E2A\u0E49\u0E19\u0E17\u0E30\u0E40\u0E25"
   foodNameEN: Yam Wun Sen Thale
   consumeType: 1
-  foodImage: {fileID: 0}
+  foodImage: {fileID: 21300000, guid: 163c553fcc806804c9a24e196a08bbaa, type: 3}
   glycemicIndex: 40
   glycemicLoad: 10
   calories: 250

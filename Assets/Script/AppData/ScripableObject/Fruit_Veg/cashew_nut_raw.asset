@@ -15,7 +15,7 @@ MonoBehaviour:
   foodNameTH: "\u0E21\u0E30\u0E21\u0E48\u0E27\u0E07\u0E2B\u0E34\u0E21\u0E1E\u0E32\u0E19\u0E15\u0E4C\u0E2A\u0E14"
   foodNameEN: Cashew Nut (raw)
   consumeType: 3
-  foodImage: {fileID: 0}
+  foodImage: {fileID: 21300000, guid: 503892cfc2640ff419827837d75fe88d, type: 3}
   glycemicIndex: 63
   glycemicLoad: 11
   calories: 553

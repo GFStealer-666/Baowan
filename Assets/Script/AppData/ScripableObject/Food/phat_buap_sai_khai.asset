@@ -15,7 +15,7 @@ MonoBehaviour:
   foodNameTH: "\u0E1C\u0E31\u0E14\u0E1A\u0E27\u0E1A\u0E43\u0E2A\u0E48\u0E44\u0E02\u0E48"
   foodNameEN: Phat Buap Sai Khai
   consumeType: 5
-  foodImage: {fileID: 0}
+  foodImage: {fileID: 21300000, guid: 0d84626a0725f5d4db0110a44009c869, type: 3}
   glycemicIndex: 45
   glycemicLoad: 10
   calories: 280

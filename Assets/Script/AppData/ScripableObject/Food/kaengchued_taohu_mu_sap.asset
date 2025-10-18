@@ -15,7 +15,7 @@ MonoBehaviour:
   foodNameTH: "\u0E41\u0E01\u0E07\u0E08\u0E37\u0E14\u0E40\u0E15\u0E49\u0E32\u0E2B\u0E39\u0E49\u0E2B\u0E21\u0E39\u0E2A\u0E31\u0E1A"
   foodNameEN: Kaengchued Taohu Mu Sap
   consumeType: 5
-  foodImage: {fileID: 0}
+  foodImage: {fileID: 21300000, guid: 8e6658f62d008d1428bded0424982e49, type: 3}
   glycemicIndex: 30
   glycemicLoad: 8
   calories: 200

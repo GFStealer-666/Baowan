@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   drinkNameTH: "\u0E01\u0E32\u0E41\u0E1F\u0E14\u0E33"
   drinkNameEN: Black Coffee
-  drinkImage: {fileID: 0}
+  drinkImage: {fileID: 21300000, guid: 738b9a13de874ff449d75d924a24bca4, type: 3}
   ingredient: "\u0E01\u0E32\u0E41\u0E1F\u0E04\u0E31\u0E48\u0E27\u0E1A\u0E14 ~1 \u0E0A\u0E49\u0E2D\u0E19\u0E42\u0E15\u0E4A\u0E30,
     \u0E19\u0E49\u0E33\u0E23\u0E49\u0E2D\u0E19 ~200 ml"
   method: "\u0E0A\u0E07\u0E14\u0E49\u0E27\u0E22 Drip/French Press \u0E2B\u0E23\u0E37\u0E2D

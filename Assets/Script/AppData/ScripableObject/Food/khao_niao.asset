@@ -16,7 +16,7 @@ MonoBehaviour:
     ~80g)"
   foodNameEN: Khao Niao
   consumeType: 0
-  foodImage: {fileID: 0}
+  foodImage: {fileID: 21300000, guid: 172d7eb1f85230244a3959a16641a0df, type: 3}
   glycemicIndex: 90
   glycemicLoad: 32
   calories: 231

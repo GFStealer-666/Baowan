@@ -16,7 +16,7 @@ MonoBehaviour:
     (1 \u0E0A\u0E34\u0E49\u0E19)"
   foodNameEN: Thot Man Pla Krai
   consumeType: 5
-  foodImage: {fileID: 0}
+  foodImage: {fileID: 21300000, guid: 94cfe7c625b47a14aac65ba88809a45b, type: 3}
   glycemicIndex: 30
   glycemicLoad: 1
   calories: 90

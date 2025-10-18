@@ -15,7 +15,7 @@ MonoBehaviour:
   foodNameTH: "\u0E25\u0E39\u0E01\u0E1E\u0E35\u0E0A"
   foodNameEN: Peach
   consumeType: 3
-  foodImage: {fileID: 0}
+  foodImage: {fileID: 21300000, guid: 7752b008803c07e4e8062b7b9832b456, type: 3}
   glycemicIndex: 56
   glycemicLoad: 6
   calories: 39

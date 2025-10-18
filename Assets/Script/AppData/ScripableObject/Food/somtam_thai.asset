@@ -15,7 +15,7 @@ MonoBehaviour:
   foodNameTH: "\u0E2A\u0E49\u0E21\u0E15\u0E33\u0E44\u0E17\u0E22"
   foodNameEN: Somtam Thai
   consumeType: 5
-  foodImage: {fileID: 0}
+  foodImage: {fileID: 21300000, guid: 777d2fe3f11e40847963eb2411a62de7, type: 3}
   glycemicIndex: 40
   glycemicLoad: 8
   calories: 140

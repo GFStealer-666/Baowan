@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   snackNameTH: "\u0E16\u0E31\u0E48\u0E27\u0E25\u0E34\u0E2A\u0E07\u0E15\u0E49\u0E21"
   snackNameEN: Boiled Peanuts
-  image: {fileID: 0}
+  image: {fileID: 21300000, guid: 5402e1be4c57b5147a04ceed36e532f0, type: 3}
   ingredient: "\u0E16\u0E31\u0E48\u0E27\u0E25\u0E34\u0E2A\u0E07\u0E14\u0E34\u0E1A
     1 \u0E16\u0E49\u0E27\u0E22"
   method: "\u0E15\u0E49\u0E21\u0E08\u0E19\u0E2A\u0E38\u0E01\u0E19\u0E34\u0E48\u0E21

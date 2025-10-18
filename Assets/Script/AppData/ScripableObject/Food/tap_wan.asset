@@ -15,7 +15,7 @@ MonoBehaviour:
   foodNameTH: "\u0E15\u0E31\u0E1A\u0E2B\u0E27\u0E32\u0E19"
   foodNameEN: Tap Wan
   consumeType: 5
-  foodImage: {fileID: 0}
+  foodImage: {fileID: 21300000, guid: 7ecfe0cc888c2ad47a74d8e820a242ac, type: 3}
   glycemicIndex: 20
   glycemicLoad: 1
   calories: 160

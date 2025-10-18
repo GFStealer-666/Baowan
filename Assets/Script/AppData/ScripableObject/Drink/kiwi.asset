@@ -15,7 +15,7 @@ MonoBehaviour:
   foodNameTH: "\u0E01\u0E35\u0E27\u0E35"
   foodNameEN: Kiwi
   consumeType: 2
-  foodImage: {fileID: 0}
+  foodImage: {fileID: 21300000, guid: 61d15a11982479441af82ae1d9af1e34, type: 3}
   glycemicIndex: 53
   glycemicLoad: 7
   calories: 61

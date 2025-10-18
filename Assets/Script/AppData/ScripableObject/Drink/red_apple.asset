@@ -15,7 +15,7 @@ MonoBehaviour:
   foodNameTH: "\u0E41\u0E2D\u0E1B\u0E40\u0E1B\u0E34\u0E25\u0E41\u0E14\u0E07"
   foodNameEN: Red Apple
   consumeType: 2
-  foodImage: {fileID: 0}
+  foodImage: {fileID: 21300000, guid: adf6960c39889fb4084dd3ee74e1e6e2, type: 3}
   glycemicIndex: 58
   glycemicLoad: 8
   calories: 52

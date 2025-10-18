@@ -15,7 +15,7 @@ MonoBehaviour:
   foodNameTH: "\u0E02\u0E49\u0E32\u0E27\u0E44\u0E02\u0E48\u0E40\u0E08\u0E35\u0E22\u0E27\u0E2B\u0E21\u0E39\u0E2A\u0E31\u0E1A"
   foodNameEN: Khao Khai Jiao Moo Sap
   consumeType: 0
-  foodImage: {fileID: 0}
+  foodImage: {fileID: 21300000, guid: 625ae69ae8f74864dac77d5648e47613, type: 3}
   glycemicIndex: 65
   glycemicLoad: 32
   calories: 600

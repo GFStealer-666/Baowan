@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dishNameTH: "\u0E1C\u0E31\u0E14\u0E01\u0E38\u0E49\u0E07\u0E41\u0E25\u0E30\u0E40\u0E2B\u0E47\u0E14"
   dishNameEN: Shrimp & Mushroom Stir-fry
-  image: {fileID: 0}
+  image: {fileID: 21300000, guid: 2df510d6228735840b3941c5bcd4c0f2, type: 3}
   ingredients: "\u0E01\u0E38\u0E49\u0E07\u0E2A\u0E14 7\u20138 \u0E15\u0E31\u0E27,
     \u0E40\u0E2B\u0E47\u0E14\u0E15\u0E48\u0E32\u0E07\u0E46 1 \u0E16\u0E49\u0E27\u0E22,
     \u0E01\u0E23\u0E30\u0E40\u0E17\u0E35\u0E22\u0E21\u0E2A\u0E31\u0E1A, \u0E19\u0E49\u0E33\u0E21\u0E31\u0E19

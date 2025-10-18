@@ -15,7 +15,7 @@ MonoBehaviour:
   foodNameTH: "\u0E40\u0E2A\u0E32\u0E27\u0E23\u0E2A"
   foodNameEN: Passionfruit
   consumeType: 3
-  foodImage: {fileID: 0}
+  foodImage: {fileID: 21300000, guid: 59e29b14992b45c488acff86a9029a63, type: 3}
   glycemicIndex: 30
   glycemicLoad: 3
   calories: 97

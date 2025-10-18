@@ -15,7 +15,7 @@ MonoBehaviour:
   foodNameTH: "\u0E22\u0E33\u0E21\u0E30\u0E21\u0E48\u0E27\u0E07"
   foodNameEN: Yam Mamuang
   consumeType: 5
-  foodImage: {fileID: 0}
+  foodImage: {fileID: 21300000, guid: 37fc591e9e0192a42958c8616895a204, type: 3}
   glycemicIndex: 40
   glycemicLoad: 8
   calories: 100

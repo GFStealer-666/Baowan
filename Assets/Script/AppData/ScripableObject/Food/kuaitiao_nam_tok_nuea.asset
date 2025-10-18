@@ -15,7 +15,7 @@ MonoBehaviour:
   foodNameTH: "\u0E01\u0E4B\u0E27\u0E22\u0E40\u0E15\u0E35\u0E4B\u0E22\u0E27\u0E19\u0E49\u0E33\u0E15\u0E01\u0E40\u0E19\u0E37\u0E49\u0E2D"
   foodNameEN: Kuaitiao Nam Tok Nuea
   consumeType: 1
-  foodImage: {fileID: 0}
+  foodImage: {fileID: 21300000, guid: a462117e6f129ae46ab6963ea50e6211, type: 3}
   glycemicIndex: 50
   glycemicLoad: 18
   calories: 310

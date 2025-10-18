@@ -15,7 +15,7 @@ MonoBehaviour:
   foodNameTH: "\u0E1C\u0E31\u0E14\u0E1C\u0E31\u0E01\u0E1A\u0E38\u0E49\u0E07\u0E44\u0E1F\u0E41\u0E14\u0E07+\u0E2B\u0E21\u0E39"
   foodNameEN: Phat Phak Bung Fai Daeng + Moo
   consumeType: 5
-  foodImage: {fileID: 0}
+  foodImage: {fileID: 21300000, guid: d2a4ba4ff38a094458badc7576d472f3, type: 3}
   glycemicIndex: 50
   glycemicLoad: 12
   calories: 350

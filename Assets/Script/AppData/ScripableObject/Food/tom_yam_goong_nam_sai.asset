@@ -15,7 +15,7 @@ MonoBehaviour:
   foodNameTH: "\u0E15\u0E49\u0E21\u0E22\u0E33\u0E01\u0E38\u0E49\u0E07\u0E19\u0E49\u0E33\u0E43\u0E2A"
   foodNameEN: Tom Yam Goong Nam Sai
   consumeType: 5
-  foodImage: {fileID: 0}
+  foodImage: {fileID: 21300000, guid: cefe83638c38e444aa5f79837d9bd118, type: 3}
   glycemicIndex: 25
   glycemicLoad: 3
   calories: 180

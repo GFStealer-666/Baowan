@@ -15,7 +15,7 @@ MonoBehaviour:
   foodNameTH: "\u0E02\u0E49\u0E32\u0E27\u0E1C\u0E31\u0E14\u0E1C\u0E31\u0E01\u0E23\u0E27\u0E21"
   foodNameEN: Khao Phat Phak Ruam
   consumeType: 0
-  foodImage: {fileID: 0}
+  foodImage: {fileID: 21300000, guid: db77ddea4fb08c14fa62bcf9f43883e7, type: 3}
   glycemicIndex: 65
   glycemicLoad: 35
   calories: 480

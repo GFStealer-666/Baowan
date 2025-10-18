@@ -15,7 +15,7 @@ MonoBehaviour:
   foodNameTH: "\u0E2D\u0E07\u0E38\u0E48\u0E19\u0E41\u0E14\u0E07"
   foodNameEN: Red Grape
   consumeType: 3
-  foodImage: {fileID: 0}
+  foodImage: {fileID: 21300000, guid: 2096024ea16d2b642bb4bee71edcb8fc, type: 3}
   glycemicIndex: 59
   glycemicLoad: 10
   calories: 69

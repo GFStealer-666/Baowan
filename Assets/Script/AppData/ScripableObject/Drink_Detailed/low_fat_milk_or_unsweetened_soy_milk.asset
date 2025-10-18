@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   drinkNameTH: "\u0E19\u0E21 Low-Fat \u0E2B\u0E23\u0E37\u0E2D\u0E16\u0E31\u0E48\u0E27\u0E40\u0E2B\u0E25\u0E37\u0E2D\u0E07\u0E44\u0E21\u0E48\u0E2B\u0E27\u0E32\u0E19"
   drinkNameEN: Low-Fat Milk or Unsweetened Soy Milk
-  drinkImage: {fileID: 0}
+  drinkImage: {fileID: 21300000, guid: 4804af64559f6834c89d055f175f396a, type: 3}
   ingredient: "\u0E19\u0E21\u0E1E\u0E23\u0E48\u0E2D\u0E07\u0E21\u0E31\u0E19\u0E40\u0E19\u0E22
     (Low-Fat) \u0E2B\u0E23\u0E37\u0E2D \u0E19\u0E49\u0E33\u0E19\u0E21\u0E16\u0E31\u0E48\u0E27\u0E40\u0E2B\u0E25\u0E37\u0E2D\u0E07\u0E44\u0E21\u0E48\u0E2B\u0E27\u0E32\u0E19
     ~200 ml"

@@ -15,7 +15,7 @@ MonoBehaviour:
   foodNameTH: "\u0E15\u0E49\u0E21\u0E02\u0E48\u0E32\u0E44\u0E01\u0E48"
   foodNameEN: Tom Kha Kai
   consumeType: 5
-  foodImage: {fileID: 0}
+  foodImage: {fileID: 21300000, guid: 2a014a0cae91b1c409ac206f2618a300, type: 3}
   glycemicIndex: 30
   glycemicLoad: 3
   calories: 220

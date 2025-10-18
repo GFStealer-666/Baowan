@@ -15,7 +15,7 @@ MonoBehaviour:
   foodNameTH: "\u0E21\u0E30\u0E1E\u0E23\u0E49\u0E32\u0E27"
   foodNameEN: Coconut (flesh)
   consumeType: 3
-  foodImage: {fileID: 0}
+  foodImage: {fileID: 21300000, guid: bced5948e3e839849ba3a874c4d52fee, type: 3}
   glycemicIndex: 45
   glycemicLoad: 7
   calories: 354

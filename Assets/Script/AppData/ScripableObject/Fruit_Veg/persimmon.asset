@@ -15,7 +15,7 @@ MonoBehaviour:
   foodNameTH: "\u0E25\u0E39\u0E01\u0E1E\u0E25\u0E31\u0E1A"
   foodNameEN: Persimmon
   consumeType: 3
-  foodImage: {fileID: 0}
+  foodImage: {fileID: 21300000, guid: 7a60fcceeb6d93d40840abbc1fb1a1ca, type: 3}
   glycemicIndex: 63
   glycemicLoad: 11
   calories: 81

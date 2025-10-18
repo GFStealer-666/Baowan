@@ -15,7 +15,7 @@ MonoBehaviour:
   foodNameTH: "\u0E0A\u0E32\u0E21\u0E30\u0E19\u0E32\u0E27\u0E19\u0E49\u0E33\u0E1C\u0E36\u0E49\u0E07"
   foodNameEN: Honey Lemon Tea
   consumeType: 2
-  foodImage: {fileID: 0}
+  foodImage: {fileID: 21300000, guid: f4ad501b2c4ee254988ca5d3761b83d2, type: 3}
   glycemicIndex: 55
   glycemicLoad: 11
   calories: 150

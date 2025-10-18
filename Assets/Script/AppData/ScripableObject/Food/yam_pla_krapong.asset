@@ -15,7 +15,7 @@ MonoBehaviour:
   foodNameTH: "\u0E22\u0E33\u0E1B\u0E25\u0E32\u0E01\u0E23\u0E30\u0E1B\u0E4B\u0E2D\u0E07"
   foodNameEN: Yam Pla Krapong
   consumeType: 5
-  foodImage: {fileID: 0}
+  foodImage: {fileID: 21300000, guid: c7d253ae0bd4b3243aa351090d6fd4de, type: 3}
   glycemicIndex: 30
   glycemicLoad: 10
   calories: 180

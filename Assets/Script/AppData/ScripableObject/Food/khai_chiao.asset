@@ -15,7 +15,7 @@ MonoBehaviour:
   foodNameTH: "\u0E44\u0E02\u0E48\u0E40\u0E08\u0E35\u0E22\u0E27"
   foodNameEN: Khai Chiao
   consumeType: 5
-  foodImage: {fileID: 0}
+  foodImage: {fileID: 21300000, guid: 6b21fc11128c0ec46a3764e7cfe1367a, type: 3}
   glycemicIndex: 20
   glycemicLoad: 5
   calories: 250

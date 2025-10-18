@@ -15,7 +15,7 @@ MonoBehaviour:
   foodNameTH: "\u0E02\u0E19\u0E38\u0E19"
   foodNameEN: Jackfruit
   consumeType: 2
-  foodImage: {fileID: 0}
+  foodImage: {fileID: 21300000, guid: 7bec5987ccc4cf843b9f5d1c77a85140, type: 3}
   glycemicIndex: 63
   glycemicLoad: 14
   calories: 95

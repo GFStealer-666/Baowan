@@ -15,7 +15,7 @@ MonoBehaviour:
   foodNameTH: "\u0E01\u0E4B\u0E27\u0E22\u0E08\u0E31\u0E4A\u0E1A\u0E19\u0E49\u0E33\u0E02\u0E49\u0E19"
   foodNameEN: Guay Jub Nam Khon
   consumeType: 1
-  foodImage: {fileID: 0}
+  foodImage: {fileID: 21300000, guid: d35f000823107f94bb678721e0f7b90d, type: 3}
   glycemicIndex: 50
   glycemicLoad: 20
   calories: 380

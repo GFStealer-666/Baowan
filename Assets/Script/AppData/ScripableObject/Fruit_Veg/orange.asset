@@ -15,7 +15,7 @@ MonoBehaviour:
   foodNameTH: "\u0E2A\u0E49\u0E21"
   foodNameEN: Orange
   consumeType: 3
-  foodImage: {fileID: 0}
+  foodImage: {fileID: 21300000, guid: 620546f7254212d4ebfa2819450eeadc, type: 3}
   glycemicIndex: 43
   glycemicLoad: 6
   calories: 47

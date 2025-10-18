@@ -15,7 +15,7 @@ MonoBehaviour:
   foodNameTH: "\u0E02\u0E49\u0E32\u0E27\u0E04\u0E25\u0E38\u0E01\u0E01\u0E30\u0E1B\u0E34"
   foodNameEN: Khao Kluk Kapi
   consumeType: 0
-  foodImage: {fileID: 0}
+  foodImage: {fileID: 21300000, guid: 1b8e8ba0148623e428d71e2d2d28c661, type: 3}
   glycemicIndex: 60
   glycemicLoad: 32
   calories: 500

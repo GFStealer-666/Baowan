@@ -15,7 +15,7 @@ MonoBehaviour:
   foodNameTH: "\u0E21\u0E31\u0E19\u0E40\u0E17\u0E28"
   foodNameEN: Sweet Potato
   consumeType: 3
-  foodImage: {fileID: 0}
+  foodImage: {fileID: 21300000, guid: 88b2546e03cd44d4b965e13c8e6a436c, type: 3}
   glycemicIndex: 51
   glycemicLoad: 11
   calories: 97

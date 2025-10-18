@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   drinkNameTH: "\u0E0A\u0E32\u0E40\u0E02\u0E35\u0E22\u0E27\u0E44\u0E21\u0E48\u0E2B\u0E27\u0E32\u0E19"
   drinkNameEN: Unsweetened Green Tea
-  drinkImage: {fileID: 0}
+  drinkImage: {fileID: 21300000, guid: 28a5a2e5ac64a6b40b48ee76926668ea, type: 3}
   ingredient: "\u0E43\u0E1A\u0E0A\u0E32\u0E40\u0E02\u0E35\u0E22\u0E27\u0E41\u0E1A\u0E1A\u0E43\u0E1A\u0E41\u0E2B\u0E49\u0E07
     ~1 \u0E0A\u0E49\u0E2D\u0E19\u0E0A\u0E32, \u0E19\u0E49\u0E33\u0E23\u0E49\u0E2D\u0E19
     ~200 ml"

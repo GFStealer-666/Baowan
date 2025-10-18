@@ -15,7 +15,7 @@ MonoBehaviour:
   foodNameTH: "\u0E2A\u0E49\u0E21\u0E42\u0E2D"
   foodNameEN: Pomelo
   consumeType: 2
-  foodImage: {fileID: 0}
+  foodImage: {fileID: 21300000, guid: 8a82820b33d4b5447ab3142ba42b87f1, type: 3}
   glycemicIndex: 25
   glycemicLoad: 2
   calories: 38

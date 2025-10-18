@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   snackNameTH: "\u0E44\u0E02\u0E48\u0E15\u0E49\u0E21"
   snackNameEN: Boiled Eggs
-  image: {fileID: 0}
+  image: {fileID: 21300000, guid: 65dcd39c7ba0a5f4bafc65bfa9dbcc4e, type: 3}
   ingredient: "\u0E44\u0E02\u0E48\u0E44\u0E01\u0E48 1\u20132 \u0E1F\u0E2D\u0E07"
   method: "\u0E15\u0E49\u0E21\u0E43\u0E19\u0E19\u0E49\u0E33\u0E40\u0E14\u0E37\u0E2D\u0E14
     5\u201310 \u0E19\u0E32\u0E17\u0E35"

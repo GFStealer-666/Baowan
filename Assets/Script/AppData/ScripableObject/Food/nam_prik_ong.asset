@@ -16,7 +16,7 @@ MonoBehaviour:
     (~100 \u0E01\u0E23\u0E31\u0E21)"
   foodNameEN: Nam Prik Ong
   consumeType: 5
-  foodImage: {fileID: 0}
+  foodImage: {fileID: 21300000, guid: 57fa79af5ab2b364e86a16bc4144a3b4, type: 3}
   glycemicIndex: 30
   glycemicLoad: 11
   calories: 120

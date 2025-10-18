@@ -15,7 +15,7 @@ MonoBehaviour:
   foodNameTH: "\u0E25\u0E30\u0E21\u0E38\u0E14"
   foodNameEN: Sapodilla
   consumeType: 3
-  foodImage: {fileID: 0}
+  foodImage: {fileID: 21300000, guid: cc5a902d3c1736d4aa47847d97d01d02, type: 3}
   glycemicIndex: 47
   glycemicLoad: 10
   calories: 83

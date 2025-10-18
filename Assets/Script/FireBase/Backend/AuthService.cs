@@ -24,13 +24,10 @@ public class AuthService : MonoBehaviour
         Auth = FirebaseAuth.DefaultInstance;
         Auth.IdTokenChanged += async (s, e) =>
         {
-            var u = Auth.CurrentUser;
-            if (u == null) return;
-
             try
             {
-                // Force a fresh token; this event may fire before Firestore is ready.
-                await u.TokenAsync(true);
+                var u = await WaitForUserWithUid();     // ← guarantees non-empty UID
+                await u.TokenAsync(true);               // fresh token
                 await UserProfileService.Instance.EnsureProfile(u);
             }
             catch (Exception ex)
@@ -101,7 +98,20 @@ public class AuthService : MonoBehaviour
             return (false, null, ParseFirebaseError(ex));
         }
     }
+    static async Task<FirebaseUser> WaitForUserWithUid(int timeoutMs = 8000)
+    {
+        await FirebaseReady.Ensure();
+        var auth = FirebaseAuth.DefaultInstance;
 
+        var start = Time.realtimeSinceStartup;
+        while (auth.CurrentUser == null || string.IsNullOrEmpty(auth.CurrentUser.UserId))
+        {
+            await System.Threading.Tasks.Task.Yield();
+            if ((Time.realtimeSinceStartup - start) * 1000 > timeoutMs)
+                throw new TimeoutException("Timed out waiting for signed-in user with UID.");
+        }
+        return auth.CurrentUser;
+    }
     public async Task<(bool ok, string err)> Login(string email, string password)
     {
         try

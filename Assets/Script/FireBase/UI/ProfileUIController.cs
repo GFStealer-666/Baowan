@@ -38,11 +38,11 @@ public class ProfileUIController : MonoBehaviour
         // populate fields
         emailText.text = $"{p.email}";
         phoneText.text = $"{p.phone}";
-        ageText.text = p.age.HasValue ? $"{p.age} Years Old" : "Age : -";
-        weightText.text = p.weightKg.HasValue ? $"{p.weightKg} kg" : "Weight : -";
-        heightText.text = p.heightCm.HasValue ? $"{p.heightCm} cm" : "Height : -";
+        ageText.text = p.age.HasValue ? $"{p.age} Years Old" : "-";
+        weightText.text = p.weightKg.HasValue ? $"{p.weightKg} kg" : "-";
+        heightText.text = p.heightCm.HasValue ? $"{p.heightCm} cm" : "-";
         careerText.text = $"{p.career}";
-        bloodText.text = p.bloodGlucoseMgDl.HasValue ? $"{p.bloodGlucoseMgDl} mg/dL" : "Blood Glucose : -";
+        bloodText.text = p.bloodGlucoseMgDl.HasValue ? $"{p.bloodGlucoseMgDl} mg/dL" : "-";
 
         // avatar (if you store one later)
         profileImage.sprite = defaultAvatar;

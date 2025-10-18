@@ -43,6 +43,21 @@ public class UserProfileService : MonoBehaviour
         // Small delay to allow any auth state propagation to the Firestore client
         await System.Threading.Tasks.Task.Delay(100);
     }
+
+    static async Task<FirebaseUser> WaitForUserWithUid(int timeoutMs = 8000)
+    {
+        await FirebaseReady.Ensure();
+        var auth = FirebaseAuth.DefaultInstance;
+
+        var start = Time.realtimeSinceStartup;
+        while (auth.CurrentUser == null || string.IsNullOrEmpty(auth.CurrentUser.UserId))
+        {
+            await System.Threading.Tasks.Task.Yield();
+            if ((Time.realtimeSinceStartup - start) * 1000 > timeoutMs)
+                throw new TimeoutException("Timed out waiting for signed-in user with UID.");
+        }
+        return auth.CurrentUser;
+    }
     private static async Task<FirebaseFirestore> GetDbAsync()
     {
         await FirebaseReady.Ensure();
@@ -57,7 +72,9 @@ public class UserProfileService : MonoBehaviour
 
     public async Task EnsureProfile(FirebaseUser user, string displayName = null, string phone = null)
     {
-        if (user == null) throw new InvalidOperationException("EnsureProfile: user is null");
+        if (user == null || string.IsNullOrEmpty(user.UserId))
+        throw new ArgumentException("EnsureProfile: user or user.UserId is null/empty");
+
         await FirebaseReady.Ensure();
 
         // Be explicit: wait until Auth.CurrentUser is the same and token refreshed.

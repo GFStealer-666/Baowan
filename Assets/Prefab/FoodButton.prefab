@@ -304,12 +304,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 37.3
+  m_fontSize: 37
   m_fontSizeBase: 12
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMax: 37
   m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -496,6 +496,7 @@ GameObject:
   - component: {fileID: 2571888657598921539}
   - component: {fileID: 1623057752683310786}
   - component: {fileID: 1495995496253961730}
+  - component: {fileID: -4200640743263245322}
   m_Layer: 5
   m_Name: FoodButton
   m_TagString: Untagged
@@ -608,6 +609,23 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &-4200640743263245322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8451739099754612264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a39fb44bf0866544e8612205b76c518f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nameText: {fileID: 919703181212560519}
+  kcalText: {fileID: 6282906399387540736}
+  giBadgeText: {fileID: 5977379918400913602}
+  glBadgeText: {fileID: 5379927832872557192}
+  clickButton: {fileID: 1495995496253961730}
 --- !u!1 &8653704042747824610
 GameObject:
   m_ObjectHideFlags: 0
@@ -776,12 +794,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 37.3
+  m_fontSize: 37
   m_fontSizeBase: 12
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMax: 37
   m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512

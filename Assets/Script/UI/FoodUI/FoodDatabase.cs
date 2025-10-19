@@ -10,7 +10,7 @@ public class FoodDatabase : MonoBehaviour
     public bool prewarmSprites = true;
 
     public IReadOnlyList<FoodDataSO> All => _all;
-    private List<FoodDataSO> _all = new List<FoodDataSO>();
+    [SerializeField] private List<FoodDataSO> _all = new List<FoodDataSO>();
 
     void Awake()
     {
@@ -22,11 +22,13 @@ public class FoodDatabase : MonoBehaviour
 
     public void LoadAll()
     {
-        _all = Resources.LoadAll<FoodDataSO>("FoodSO").OrderBy(f => f.foodNameTH).ToList();
+    // Load all FoodDataSO assets placed under any Resources/ScriptableObject subfolder
+    // (e.g. Assets/Resources/ScriptableObject/Drink, /Fruit_Veg, /Food)
+        _all = Resources.LoadAll<FoodDataSO>("ScriptableObject").OrderBy(f => f.foodNameTH).ToList();
 
         if (prewarmSprites)
             foreach (var f in _all)
-                if (f.foodImage) _ = f.foodImage.texture; // touch to force load
+                if (f.foodImage) _ = f.foodImage.texture;
 #if UNITY_EDITOR
         Debug.Log($"[FoodDatabase] Loaded {_all.Count} foods.");
 #endif

@@ -44,20 +44,7 @@ public class UserProfileService : MonoBehaviour
         await System.Threading.Tasks.Task.Delay(100);
     }
 
-    static async Task<FirebaseUser> WaitForUserWithUid(int timeoutMs = 8000)
-    {
-        await FirebaseReady.Ensure();
-        var auth = FirebaseAuth.DefaultInstance;
-
-        var start = Time.realtimeSinceStartup;
-        while (auth.CurrentUser == null || string.IsNullOrEmpty(auth.CurrentUser.UserId))
-        {
-            await System.Threading.Tasks.Task.Yield();
-            if ((Time.realtimeSinceStartup - start) * 1000 > timeoutMs)
-                throw new TimeoutException("Timed out waiting for signed-in user with UID.");
-        }
-        return auth.CurrentUser;
-    }
+    
     private static async Task<FirebaseFirestore> GetDbAsync()
     {
         await FirebaseReady.Ensure();

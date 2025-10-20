@@ -9,9 +9,9 @@ public class MedicineButton : MonoBehaviour
     [SerializeField] Image icon;     // optional
 
     MedicineDataSO data;
-    [SerializeField]MedicineDetailView detail;
+    [SerializeField]UnifiedDetailView detail;
 
-    public void Setup(MedicineDataSO so, MedicineDetailView detailView)
+    public void Setup(MedicineDataSO so, UnifiedDetailView detailView)
     {
         data   = so;
         detail = detailView;

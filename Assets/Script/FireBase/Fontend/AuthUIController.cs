@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class AuthUIController : MonoBehaviour
 {
@@ -9,7 +10,8 @@ public class AuthUIController : MonoBehaviour
     public TMP_InputField nameInput, emailInput, phoneInput, passwordInput;
     public TMP_InputField ageInput, weightInput, heightInput, careerInput, glucoseInput;
     public TMP_Text statusText;
-
+    public GameObject addInfoPanel , registerPanel;
+    public string sceneToLoadOnSuccess = "App";
     IAuthService Auth => Services.Auth;
     IUserProfileRepository Repo => Services.Profiles;
 
@@ -24,7 +26,7 @@ public class AuthUIController : MonoBehaviour
         var pass  = passwordInput.text;
         var phone = phoneInput.text.Trim();
 
-        SetStatus("Creating account...");
+        SetStatus("กำลังลงทะเบียน...");
 
         // Create account (Firebase signs you in automatically)
         var (ok, user, err) = await AuthService.Instance.RegisterAndReturnUser(email, pass);
@@ -43,7 +45,7 @@ public class AuthUIController : MonoBehaviour
         catch (Exception ex)
         {
             Debug.LogError("EnsureProfile failed: " + ex);
-            SetStatus("Could not create profile.");
+            SetStatus("ไม่สามารถสร้างโปรไฟล์ได้");
             return;
         }
 
@@ -51,11 +53,14 @@ public class AuthUIController : MonoBehaviour
         var claimed = await UserProfileService.TryClaimDisplayName(name);
         if (!claimed)
         {
-            SetStatus("That name was just taken. Please choose another.");
+            SetStatus("ชื่อนี้ถูกใช้ไปแล้ว กรุณาเลือกชื่ออื่น");
             return;
         }
 
-        SetStatus("Registered successfully!");
+        SetStatus("ลงทะเบียนสำเร็จ");
+        registerPanel.SetActive(false);
+        addInfoPanel.SetActive(true);
+
     }
 
     public async void OnSaveProfileClicked()
@@ -63,7 +68,10 @@ public class AuthUIController : MonoBehaviour
         if (string.IsNullOrEmpty(Auth.CurrentUserId)) { SetStatus("Sign in first."); return; }
         var p = ParseProfileFromUI();
         await Repo.SaveAsync(Auth.CurrentUserId, p);
-        SetStatus("Profile saved.");
+        SetStatus("โปรไฟล์ถูกบันทึกแล้ว");
+        addInfoPanel.SetActive(false);
+        SceneManager.LoadScene(sceneToLoadOnSuccess);
+
     }
 
     UserProfile ParseProfileFromUI()

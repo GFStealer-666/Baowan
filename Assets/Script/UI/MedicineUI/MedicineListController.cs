@@ -11,7 +11,7 @@ public class MedicineListController : MonoBehaviour
     [SerializeField] MedicineButton buttonPrefab;          // the prefab with MedicineButton
 
     [Header("Detail")]
-    [SerializeField] MedicineDetailView detailView;        // reference to the detail view
+    [SerializeField] UnifiedDetailView detailView;        // reference to the detail view
 
     void Start() => BuildList();
 

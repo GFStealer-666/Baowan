@@ -22,19 +22,36 @@ public class AuthService : MonoBehaviour
     {
         await Services.InitAsync();
         Auth = FirebaseAuth.DefaultInstance;
-        Auth.IdTokenChanged += async (s, e) =>
+        Auth.IdTokenChanged += (s, e) => _ = HandleIdTokenChangedAsync();
+
+        async Task HandleIdTokenChangedAsync()
         {
             try
             {
-                var u = await WaitForUserWithUid();     // ← guarantees non-empty UID
+                // First try the current user immediately
+                var u = FirebaseAuth.DefaultInstance.CurrentUser;
+                if (u == null || string.IsNullOrEmpty(u.UserId))
+                {
+                    // Wait a bit for the system to populate the user; this may timeout sometimes
+                    u = await WaitForUserWithUid(12000);
+                }
+
+                // If still null, bail quietly
+                if (u == null) return;
+
                 await u.TokenAsync(true);               // fresh token
                 await UserProfileService.Instance.EnsureProfile(u);
+            }
+            catch (TimeoutException tex)
+            {
+                // Not fatal; log a warning and continue. We may pick this up later via other flows.
+                Debug.LogWarning("[Auth] EnsureProfile after IdTokenChanged timed out waiting for user: " + tex.Message);
             }
             catch (Exception ex)
             {
                 Debug.LogError("[Auth] EnsureProfile after IdTokenChanged failed: " + ex);
             }
-        };
+        }
         Auth.StateChanged += OnAuthStateChanged;
         OnAuthStateChanged(this, null);
     }
@@ -106,7 +123,8 @@ public class AuthService : MonoBehaviour
         var start = Time.realtimeSinceStartup;
         while (auth.CurrentUser == null || string.IsNullOrEmpty(auth.CurrentUser.UserId))
         {
-            await System.Threading.Tasks.Task.Yield();
+            // small delay to avoid tight spinning; allow main thread to process callbacks
+            await Task.Delay(50);
             if ((Time.realtimeSinceStartup - start) * 1000 > timeoutMs)
                 throw new TimeoutException("Timed out waiting for signed-in user with UID.");
         }
@@ -131,14 +149,14 @@ public class AuthService : MonoBehaviour
 
             string msg = code switch
             {
-                AuthError.InvalidEmail          => "Email format is invalid.",
-                AuthError.MissingEmail          => "Please enter your email.",
-                AuthError.MissingPassword       => "Please enter your password.",
-                AuthError.WrongPassword         => "Wrong password.",
-                AuthError.UserNotFound          => "No account found with this email.",
-                AuthError.NetworkRequestFailed  => "Network error. Try another network.",
-                AuthError.OperationNotAllowed   => "Email/password sign-in is disabled in Firebase.",
-                _ => "Sign-in failed. Please try again."
+                AuthError.InvalidEmail          => "รูปแบบอีเมลไม่ถูกต้อง",
+                AuthError.MissingEmail          => "กรุณากรอกอีเมลของคุณ",
+                AuthError.MissingPassword       => "กรุณากรอกรหัสผ่านของคุณ",
+                AuthError.WrongPassword         => "รหัสผ่านไม่ถูกต้อง",
+                AuthError.UserNotFound          => "ไม่พบบัญชีที่มีอีเมลนี้",
+                AuthError.NetworkRequestFailed  => "เกิดข้อผิดพลาดในการเชื่อมต่อ โปรดลองอีกครั้ง",
+                AuthError.OperationNotAllowed   => "การเข้าสู่ระบบด้วยอีเมล/รหัสผ่านถูกปิดใช้งานใน Firebase",
+                _ => "การเข้าสู่ระบบล้มเหลว โปรดลองอีกครั้ง"
             };
             return (false, msg);
         }

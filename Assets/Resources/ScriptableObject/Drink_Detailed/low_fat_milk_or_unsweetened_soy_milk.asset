@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ed36582d9261af40b507f7ccb0ecff0, type: 3}
   m_Name: low_fat_milk_or_unsweetened_soy_milk
   m_EditorClassIdentifier: 
-  drinkNameTH: "\u0E19\u0E21 Low-Fat \u0E2B\u0E23\u0E37\u0E2D\u0E16\u0E31\u0E48\u0E27\u0E40\u0E2B\u0E25\u0E37\u0E2D\u0E07\u0E44\u0E21\u0E48\u0E2B\u0E27\u0E32\u0E19"
+  drinkNameTH: "\u0E19\u0E21 Low-Fat"
   drinkNameEN: Low-Fat Milk or Unsweetened Soy Milk
   drinkImage: {fileID: 21300000, guid: 4804af64559f6834c89d055f175f396a, type: 3}
   ingredient: "\u0E19\u0E21\u0E1E\u0E23\u0E48\u0E2D\u0E07\u0E21\u0E31\u0E19\u0E40\u0E19\u0E22

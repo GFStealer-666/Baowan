@@ -17,8 +17,16 @@ public class LoginButton : MonoBehaviour
     public TMP_InputField passwordTMP;
 
     [Header("Optional UI")]
-    public Text statusText;
+    public TMP_Text statusText;
     public string sceneToLoadOnSuccess;
+
+    [Header("Success handling")]
+    [Tooltip("Optional panel to show after successful login (e.g. add info). If set, this panel will be activated on success instead of loading a scene.")]
+    public GameObject addInfoPanel;
+    [Tooltip("Optional root of the login UI to hide when success panel is shown.")]
+    public GameObject loginRoot;
+    [Tooltip("If true and Add Info panel is shown, the loginRoot will be hidden on success.")]
+    public bool hideLoginOnSuccess = true;
 
     Button _button;
 
@@ -31,7 +39,7 @@ public class LoginButton : MonoBehaviour
     {
         if (AuthService.Instance == null)
         {
-            SetStatus("AuthService not initialized.");
+            SetStatus("ระบบยืนยันตัวตนยังไม่ถูกตั้งค่า");
             Debug.LogWarning("AuthService.Instance is null when trying to login.");
             return;
         }
@@ -41,13 +49,13 @@ public class LoginButton : MonoBehaviour
 
         if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
         {
-            SetStatus("Please enter email and password.");
+            SetStatus("กรุณากรอกอีเมลและรหัสผ่าน");
             return;
         }
 
-        // disable button while signing in
-        SetInteractable(false);
-        SetStatus("Signing in...");
+            // disable button while signing in
+            SetInteractable(false);
+            SetStatus("กำลังเข้าสู่ระบบ...");
 
         try
         {
@@ -59,22 +67,36 @@ public class LoginButton : MonoBehaviour
 
             if (ok)
             {
-                SetStatus("Signed in");
+                SetStatus("เข้าสู่ระบบสำเร็จ");
+
+                // Prefer showing Add Info panel if assigned
+                if (addInfoPanel != null)
+                {
+                    addInfoPanel.SetActive(true);
+                    if (hideLoginOnSuccess && loginRoot != null) loginRoot.SetActive(false);
+                    // keep button disabled when we've moved to the add-info flow
+                    return;
+                }
+
                 if (!string.IsNullOrEmpty(sceneToLoadOnSuccess))
+                {
                     SceneManager.LoadScene(sceneToLoadOnSuccess);
+                    return;
+                }
             }
             else
             {
-                SetStatus("Sign in failed: " + (err ?? "Unknown error"));
+                SetStatus("เข้าสู่ระบบล้มเหลว: " + (err ?? "เกิดข้อผิดพลาดไม่ทราบสาเหตุ"));
             }
         }
         catch (Exception ex)
         {
             Debug.LogError(ex);
-            SetStatus("Sign in error: " + ex.Message);
+            SetStatus("ข้อผิดพลาดการเข้าสู่ระบบ: " + ex.Message);
         }
         finally
         {
+            // If addInfoPanel was shown we returned and won't reach here; re-enable otherwise
             SetInteractable(true);
         }
     }
@@ -94,7 +116,7 @@ public class LoginButton : MonoBehaviour
     void SetStatus(string s)
     {
         if (statusText != null) statusText.text = s;
-        Debug.Log("[LoginButton] " + s);
+        else Debug.Log("[LoginButton] " + s);
     }
 
     void SetInteractable(bool v)

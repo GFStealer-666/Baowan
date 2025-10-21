@@ -497,6 +497,7 @@ GameObject:
   - component: {fileID: 1623057752683310786}
   - component: {fileID: 1495995496253961730}
   - component: {fileID: -4200640743263245322}
+  - component: {fileID: 986758326554133702}
   m_Layer: 5
   m_Name: FoodButton
   m_TagString: Untagged
@@ -626,6 +627,22 @@ MonoBehaviour:
   giBadgeText: {fileID: 5977379918400913602}
   glBadgeText: {fileID: 5379927832872557192}
   clickButton: {fileID: 1495995496253961730}
+--- !u!114 &986758326554133702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8451739099754612264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3017945de1eff24c84a9f9df9ca2729, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  navigation: {fileID: 0}
+  targetScreen: 20
+  targetScreenId: 
+  pushToHistory: 1
 --- !u!1 &8653704042747824610
 GameObject:
   m_ObjectHideFlags: 0

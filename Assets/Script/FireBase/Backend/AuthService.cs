@@ -135,7 +135,7 @@ public class AuthService : MonoBehaviour
         try
         {
             await FirebaseReady.Ensure();
-            email = (email ?? "").Trim().Replace("\r","").Replace("\n","");
+            email = (email ?? "").Trim().Replace("\r", "").Replace("\n", "");
             password = password ?? "";
 
             var result = await FirebaseAuth.DefaultInstance
@@ -149,16 +149,41 @@ public class AuthService : MonoBehaviour
 
             string msg = code switch
             {
-                AuthError.InvalidEmail          => "รูปแบบอีเมลไม่ถูกต้อง",
-                AuthError.MissingEmail          => "กรุณากรอกอีเมลของคุณ",
-                AuthError.MissingPassword       => "กรุณากรอกรหัสผ่านของคุณ",
-                AuthError.WrongPassword         => "รหัสผ่านไม่ถูกต้อง",
-                AuthError.UserNotFound          => "ไม่พบบัญชีที่มีอีเมลนี้",
-                AuthError.NetworkRequestFailed  => "เกิดข้อผิดพลาดในการเชื่อมต่อ โปรดลองอีกครั้ง",
-                AuthError.OperationNotAllowed   => "การเข้าสู่ระบบด้วยอีเมล/รหัสผ่านถูกปิดใช้งานใน Firebase",
+                AuthError.InvalidEmail => "รูปแบบอีเมลไม่ถูกต้อง",
+                AuthError.MissingEmail => "กรุณากรอกอีเมลของคุณ",
+                AuthError.MissingPassword => "กรุณากรอกรหัสผ่านของคุณ",
+                AuthError.WrongPassword => "รหัสผ่านไม่ถูกต้อง",
+                AuthError.UserNotFound => "ไม่พบบัญชีที่มีอีเมลนี้",
+                AuthError.NetworkRequestFailed => "เกิดข้อผิดพลาดในการเชื่อมต่อ โปรดลองอีกครั้ง",
+                AuthError.OperationNotAllowed => "การเข้าสู่ระบบด้วยอีเมล/รหัสผ่านถูกปิดใช้งานใน Firebase",
                 _ => "การเข้าสู่ระบบล้มเหลว โปรดลองอีกครั้ง"
             };
             return (false, msg);
+        }
+    }
+    
+    private async System.Threading.Tasks.Task HandleIdTokenChangedAsync()
+    {
+        var auth = Firebase.Auth.FirebaseAuth.DefaultInstance;
+        var user = auth.CurrentUser;
+
+        // Signed out? Just exit cleanly.
+        if (user == null || string.IsNullOrWhiteSpace(user.UserId))
+        {
+            UnityEngine.Debug.Log("[Auth] IdTokenChanged: user is null (signed out). Skip EnsureProfile.");
+            return;
+        }
+
+        // Optionally ensure Firebase/Firestore ready here if you have a helper
+        await FirebaseReady.Ensure();
+
+        try
+        {
+            await UserProfileService.Instance.EnsureProfile(user, user.DisplayName, user.PhoneNumber);
+        }
+        catch (System.Exception ex)
+        {
+            UnityEngine.Debug.LogError($"[Auth] EnsureProfile failed: {ex}");
         }
     }
 

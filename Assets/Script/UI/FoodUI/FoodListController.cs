@@ -24,8 +24,15 @@ public class FoodListController : MonoBehaviour
     private readonly List<GameObject> _spawned = new();
     private ConsumeType? _activeFilter = null;
 
+
     void Start()
     {
+    // Ensure visible toggles
+        foreach (var t in new[] { riceToggle, noodleToggle, beverageToggle, fruitToggle })
+        {
+            
+        }
+
         // Default results: random 10
         RenderItems(FoodDatabase.I.RandomPick(defaultRandomCount));
 
@@ -35,7 +42,7 @@ public class FoodListController : MonoBehaviour
         if (noodleToggle)   noodleToggle.onValueChanged.AddListener(_ => OnToggleChanged());
         if (beverageToggle) beverageToggle.onValueChanged.AddListener(_ => OnToggleChanged());
         if (fruitToggle)    fruitToggle.onValueChanged.AddListener(_ => OnToggleChanged());
-    }
+}
 
     void OnToggleChanged()
     {

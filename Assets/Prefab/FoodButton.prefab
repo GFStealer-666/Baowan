@@ -626,7 +626,12 @@ MonoBehaviour:
   kcalText: {fileID: 6282906399387540736}
   giBadgeText: {fileID: 5977379918400913602}
   glBadgeText: {fileID: 5379927832872557192}
+  giBadgeBg: {fileID: 7416396847227535114}
+  glBadgeBg: {fileID: 2640777026812763019}
   clickButton: {fileID: 1495995496253961730}
+  greenSprite: {fileID: 21300000, guid: 70fa8674a7f51914590e22e806063797, type: 3}
+  orangeSprite: {fileID: 21300000, guid: bbde1fe51bee5074faac1872c62f17a9, type: 3}
+  redSprite: {fileID: 21300000, guid: 02954e73a29a743479cff0c725481b53, type: 3}
 --- !u!114 &986758326554133702
 MonoBehaviour:
   m_ObjectHideFlags: 0

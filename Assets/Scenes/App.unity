@@ -7610,7 +7610,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 87
   m_TargetDisplay: 0
 --- !u!224 &484988687
 RectTransform:
@@ -13510,7 +13510,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 731154039}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 51182346}
+        m_TargetAssemblyTypeName: FoodDatabase, Assembly-CSharp
+        m_MethodName: LoadAll
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &731154039
 MonoBehaviour:
   m_ObjectHideFlags: 0

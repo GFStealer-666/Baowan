@@ -16,10 +16,9 @@ public class FoodDatabase : MonoBehaviour
     {
         if (I != null) { Destroy(gameObject); return; }
         I = this;
-        DontDestroyOnLoad(gameObject);
         LoadAll();
     }
-
+    
     public void LoadAll()
     {
     // Load all FoodDataSO assets placed under any Resources/ScriptableObject subfolder

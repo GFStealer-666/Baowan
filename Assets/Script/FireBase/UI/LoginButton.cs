@@ -70,13 +70,13 @@ public class LoginButton : MonoBehaviour
                 SetStatus("เข้าสู่ระบบสำเร็จ");
 
                 // Prefer showing Add Info panel if assigned
-                if (addInfoPanel != null)
-                {
-                    addInfoPanel.SetActive(true);
-                    if (hideLoginOnSuccess && loginRoot != null) loginRoot.SetActive(false);
-                    // keep button disabled when we've moved to the add-info flow
-                    return;
-                }
+                // if (addInfoPanel != null)
+                // {
+                //     addInfoPanel.SetActive(true);
+                //     if (hideLoginOnSuccess && loginRoot != null) loginRoot.SetActive(false);
+                //     // keep button disabled when we've moved to the add-info flow
+                //     return;
+                // }
 
                 if (!string.IsNullOrEmpty(sceneToLoadOnSuccess))
                 {

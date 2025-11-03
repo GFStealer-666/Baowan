@@ -24,7 +24,7 @@ public class AuthUIController : MonoBehaviour
         var name  = nameInput.text.Trim();
         var email = emailInput.text.Trim();
         var pass  = passwordInput.text;
-        var phone = phoneInput.text.Trim();
+        var phone = phoneInput.text;
 
         SetStatus("กำลังลงทะเบียน...");
 
@@ -75,18 +75,20 @@ public class AuthUIController : MonoBehaviour
     }
 
     UserProfile ParseProfileFromUI()
-    {
-        var p = new UserProfile {
-            displayName = nameInput?.text.Trim(),
-            phone = phoneInput?.text.Trim(),
-            career = careerInput?.text.Trim()
-        };
-        if (int.TryParse(ageInput?.text, out int age)) p.age = Mathf.Clamp(age, 0, 120);
-        if (double.TryParse(weightInput?.text, out var w)) p.weightKg = Math.Max(0, w);
-        if (double.TryParse(heightInput?.text, out var h)) p.heightCm = Math.Max(0, h);
-        if (double.TryParse(glucoseInput?.text, out var g)) p.bloodGlucoseMgDl = Math.Max(0, g);
-        return p;
-    }
+{
+    string Clean(string s) => string.IsNullOrWhiteSpace(s) ? null : s.Trim();
+
+    var p = new UserProfile {
+        displayName = Clean(nameInput?.text),
+        phone       = Clean(phoneInput?.text),
+        career      = Clean(careerInput?.text)
+    };
+    if (int.TryParse(ageInput?.text, out var age))           p.age = Mathf.Clamp(age, 0, 120);
+    if (double.TryParse(weightInput?.text, out var w))       p.weightKg = Math.Max(0, w);
+    if (double.TryParse(heightInput?.text, out var h))       p.heightCm = Math.Max(0, h);
+    if (double.TryParse(glucoseInput?.text, out var g))      p.bloodGlucoseMgDl = Math.Max(0, g);
+    return p;
+}
 
     void SetStatus(string m) { if (statusText) statusText.text = m; Debug.Log(m); }
 }

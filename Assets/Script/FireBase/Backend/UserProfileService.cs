@@ -116,19 +116,34 @@ public class UserProfileService : MonoBehaviour
     }
 
 
-    public async Task SaveProfileFields(string uid, UserProfile p)
+   public async Task SaveProfileFields(string uid, UserProfile p)
+{
+    await FirebaseReady.Ensure();
+    var db = FirebaseFirestore.DefaultInstance;
+
+    var updates = new Dictionary<string, object> {
+        { "updatedAt", FieldValue.ServerTimestamp }
+    };
+
+    void AddIfNotNull(string key, string v)
     {
-        var db = await GetDbAsync();
-        await db.Collection("users").Document(uid).SetAsync(new Dictionary<string, object> {
-            { "displayName", p.displayName ?? "" },
-            { "phone", p.phone ?? "" },
-            { "career", p.career ?? "" },
-            { "updatedAt", FieldValue.ServerTimestamp },
-            // add optional fields only if set:
-            // ...
-        }, SetOptions.MergeAll);
+        if (!string.IsNullOrWhiteSpace(v)) updates[key] = v.Trim();
     }
 
+    AddIfNotNull("displayName", p.displayName);
+    AddIfNotNull("phone",       p.phone);
+    AddIfNotNull("career",      p.career);
+
+    if (p.age.HasValue)               updates["age"]                = p.age.Value;
+    if (p.weightKg.HasValue)          updates["weightKg"]           = p.weightKg.Value;
+    if (p.heightCm.HasValue)          updates["heightCm"]           = p.heightCm.Value;
+    if (p.bloodGlucoseMgDl.HasValue)  updates["bloodGlucoseMgDl"]   = p.bloodGlucoseMgDl.Value;
+
+    if (updates.Count == 1) { Debug.Log("[Profile] Nothing to update"); return; }
+
+    await db.Collection("users").Document(uid).SetAsync(updates, SetOptions.MergeAll);
+    Debug.Log("[Profile] Updated");
+}
     public async Task<UserProfile> GetProfile(string uid)
     {
         var doc = await DocAsync(uid);

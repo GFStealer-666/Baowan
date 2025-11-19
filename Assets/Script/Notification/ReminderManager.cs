@@ -2,13 +2,10 @@ using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Android;
 
 #if UNITY_ANDROID
 using Unity.Notifications.Android;
-#endif
-
-#if UNITY_IOS
-using Unity.Notifications.iOS;
 #endif
 
 namespace Baowan.Systems.Notifications
@@ -20,21 +17,33 @@ namespace Baowan.Systems.Notifications
         [SerializeField] private Button setReminderButton;
 
         [Header("Reminder Content")]
-        [SerializeField] private string reminderTitle = "Medicine Reminder";
-        [SerializeField] private string reminderMessage = "Time to take your medicine.";
+        [SerializeField] private string reminderTitle = "แจ้งเตือนทานยา";
+        [SerializeField] private string reminderMessage = "ถึงเวลาทานยาแล้ว";
 
         private void Awake()
         {
             if (setReminderButton != null)
                 setReminderButton.onClick.AddListener(OnSetReminderClicked);
         }
-
+        void Start()
+        {
+            RequestNotificationPermission();
+            RegisterNotificationChannel();
+        }
         private void OnDestroy()
         {
             if (setReminderButton != null)
                 setReminderButton.onClick.RemoveListener(OnSetReminderClicked);
         }
-
+        
+        public void RequestNotificationPermission()
+        {
+            if(!Permission.HasUserAuthorizedPermission("android.permission.POST_NOTIFICATIONS"))
+            {
+                Permission.RequestUserPermission("android.permission.POST_NOTIFICATIONS");
+            }
+        }
+        
         private void OnSetReminderClicked()
         {
             if (timeInputField == null)
@@ -92,14 +101,23 @@ namespace Baowan.Systems.Notifications
         {
 #if UNITY_ANDROID
             ScheduleAndroidNotification(fireTime);
-#elif UNITY_IOS
-            ScheduleIOSNotification(fireTime);
 #else
             Debug.Log($"[Editor] Notification scheduled for: {fireTime}");
 #endif
         }
 
 #if UNITY_ANDROID
+        public void RegisterNotificationChannel()
+        {
+            var chanel = new AndroidNotificationChannel()
+            {
+                Id = "baowan_reminder_channel",
+                Name = "Baowan Reminders",
+                Importance = Importance.High,
+                Description = "แจ้งเตือนการทานยา",
+            };
+            AndroidNotificationCenter.RegisterNotificationChannel(chanel);
+        }
         private void ScheduleAndroidNotification(DateTime fireTime)
         {
             var notification = new AndroidNotification
@@ -117,35 +135,6 @@ namespace Baowan.Systems.Notifications
         }
 #endif
 
-#if UNITY_IOS
-        private void ScheduleIOSNotification(DateTime fireTime)
-        {
-            var timeSpan = fireTime - DateTime.Now;
-            if (timeSpan.TotalSeconds < 1)
-                timeSpan = TimeSpan.FromSeconds(1);
-
-            var trigger = new iOSNotificationTimeIntervalTrigger
-            {
-                TimeInterval = timeSpan,
-                Repeats = false
-            };
-
-            var notification = new iOSNotification
-            {
-                Identifier = Guid.NewGuid().ToString(),
-                Title = reminderTitle,
-                Body = reminderMessage,
-                ShowInForeground = true,
-                ForegroundPresentationOption = (PresentationOption.Alert | PresentationOption.Sound),
-                CategoryIdentifier = "baowan_reminder",
-                ThreadIdentifier = "baowan_reminder_thread",
-                Trigger = trigger
-            };
-
-            iOSNotificationCenter.ScheduleNotification(notification);
-
-            Debug.Log($"iOS notification scheduled in {timeSpan.TotalMinutes:F1} minutes");
-        }
-#endif
     }
 }
+

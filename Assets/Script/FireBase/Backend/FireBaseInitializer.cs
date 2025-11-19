@@ -5,10 +5,11 @@ using UnityEngine;
 
 public class FirebaseInitializer : MonoBehaviour
 {
-    async void Awake()
+    void Awake()
     {
         DontDestroyOnLoad(gameObject);
-        await Services.InitAsync();
-        Debug.Log("Services ready");
+        Debug.Log("[FirebaseInitializer] SKIP Services.InitAsync TEST");
+        // await Services.InitAsync();   // TEMPORARILY COMMENT THIS OUT
     }
 }
+

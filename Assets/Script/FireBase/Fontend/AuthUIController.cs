@@ -6,51 +6,136 @@ using UnityEngine.SceneManagement;
 
 public class AuthUIController : MonoBehaviour
 {
-    // registering side.
+    // Registering side.
+    [Header("Input Fields - Basic")]
     public TMP_InputField nameInput, emailInput, phoneInput, passwordInput;
+
+    [Header("Input Fields - Extra Info")]
     public TMP_InputField ageInput, weightInput, heightInput, careerInput, glucoseInput;
+
+    [Header("UI")]
     public TMP_Text statusText;
-    public GameObject addInfoPanel , registerPanel;
+    public GameObject addInfoPanel, registerPanel;
     public string sceneToLoadOnSuccess = "App";
+
+    // Services (from your service locator)
     IAuthService Auth => Services.Auth;
     IUserProfileRepository Repo => Services.Profiles;
 
-    public void OnRegisterClicked() 
+    private bool _ready;
+
+    private async void Awake()
     {
+        // Make sure Firebase + Services are ready before this UI is used
+        try
+        {
+            await FirebaseReady.Ensure();
+        }
+        catch (Exception e)
+        {
+            Debug.LogError("[AuthUIController] Firebase / services not ready: " + e);
+            SetStatus("ระบบยังไม่พร้อม กรุณาลองใหม่อีกครั้ง");
+            enabled = false;
+            return;
+        }
+
+        Debug.Log($"[AuthUIController] Ready. Auth={Auth != null}, Repo={Repo != null}, " +
+                  $"AuthService.Instance={AuthService.Instance != null}, " +
+                  $"UserProfileService.Instance={UserProfileService.Instance != null}");
+
+        _ready = true;
+    }
+
+    // ---------- Register flow ----------
+
+    public void OnRegisterClicked()
+    {
+        if (!_ready)
+        {
+            SetStatus("ระบบยังไม่พร้อม กรุณาลองใหม่อีกครั้ง");
+            Debug.LogWarning("[AuthUIController] Register clicked before ready.");
+            return;
+        }
+
         _ = RegisterFlowAsync();
     }
+
     private async Task RegisterFlowAsync()
     {
-        var name  = nameInput.text.Trim();
-        var email = emailInput.text.Trim();
-        var pass  = passwordInput.text;
-        var phone = phoneInput.text;
+        if (AuthService.Instance == null)
+        {
+            SetStatus("ระบบยังไม่พร้อม (AuthService)");
+            Debug.LogError("[AuthUIController] AuthService.Instance is null");
+            return;
+        }
+        if (UserProfileService.Instance == null)
+        {
+            SetStatus("ระบบยังไม่พร้อม (UserProfileService)");
+            Debug.LogError("[AuthUIController] UserProfileService.Instance is null");
+            return;
+        }
+
+        var name  = nameInput ? nameInput.text.Trim()   : string.Empty;
+        var email = emailInput ? emailInput.text.Trim() : string.Empty;
+        var pass  = passwordInput ? passwordInput.text  : string.Empty;
+        var phone = phoneInput ? phoneInput.text.Trim() : string.Empty;
 
         SetStatus("กำลังลงทะเบียน...");
 
         // Create account (Firebase signs you in automatically)
-        var (ok, user, err) = await AuthService.Instance.RegisterAndReturnUser(email, pass);
-        if (!ok) { SetStatus(err); return; }
+        (bool ok, Firebase.Auth.FirebaseUser user, string err) result;
+        try
+        {
+            result = await AuthService.Instance.RegisterAndReturnUser(email, pass);
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError("[AuthUIController] RegisterAndReturnUser exception: " + ex);
+            SetStatus("ไม่สามารถลงทะเบียนได้ กรุณาลองใหม่อีกครั้ง");
+            return;
+        }
+
+        if (!result.ok)
+        {
+            SetStatus(result.err);
+            return;
+        }
+
+        var user = result.user;
 
         // Hydrate user fields (email, uid) just in case
-        try { await user.ReloadAsync(); } catch {}
+        try { await user.ReloadAsync(); } catch { }
 
         // NOW create the profile document
         try
         {
-            Debug.Log($"[AuthUIController] Before EnsureProfile: DefaultAuthUid={Firebase.Auth.FirebaseAuth.DefaultInstance.CurrentUser?.UserId} createdUserUid={user.UserId}");
+            Debug.Log($"[AuthUIController] Before EnsureProfile: DefaultAuthUid=" +
+                      $"{Firebase.Auth.FirebaseAuth.DefaultInstance.CurrentUser?.UserId} " +
+                      $"createdUserUid={user.UserId}");
+
             await UserProfileService.Instance.EnsureProfile(user, name, phone);
-            Debug.Log("EnsureProfile DONE");
+            Debug.Log("[AuthUIController] EnsureProfile DONE");
         }
         catch (Exception ex)
         {
-            Debug.LogError("EnsureProfile failed: " + ex);
+            Debug.LogError("[AuthUIController] EnsureProfile failed: " + ex);
             SetStatus("ไม่สามารถสร้างโปรไฟล์ได้");
             return;
         }
 
         // (Optional) Claim display name atomically
-        var claimed = await UserProfileService.TryClaimDisplayName(name);
+        bool claimed;
+        try
+        {
+            claimed = await UserProfileService.TryClaimDisplayName(name);
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError("[AuthUIController] TryClaimDisplayName failed: " + ex);
+            SetStatus("ไม่สามารถตรวจสอบชื่อได้ กรุณาลองใหม่");
+            return;
+        }
+
         if (!claimed)
         {
             SetStatus("ชื่อนี้ถูกใช้ไปแล้ว กรุณาเลือกชื่ออื่น");
@@ -58,37 +143,98 @@ public class AuthUIController : MonoBehaviour
         }
 
         SetStatus("ลงทะเบียนสำเร็จ");
-        registerPanel.SetActive(false);
-        addInfoPanel.SetActive(true);
 
+        if (registerPanel) registerPanel.SetActive(false);
+        if (addInfoPanel) addInfoPanel.SetActive(true);
     }
+
+    // ---------- Save extra profile info ----------
 
     public async void OnSaveProfileClicked()
     {
-        if (string.IsNullOrEmpty(Auth.CurrentUserId)) { SetStatus("Sign in first."); return; }
-        var p = ParseProfileFromUI();
-        await Repo.SaveAsync(Auth.CurrentUserId, p);
-        SetStatus("โปรไฟล์ถูกบันทึกแล้ว");
-        addInfoPanel.SetActive(false);
-        SceneManager.LoadScene(sceneToLoadOnSuccess);
+        if (!_ready)
+        {
+            SetStatus("ระบบยังไม่พร้อม กรุณาลองใหม่อีกครั้ง");
+            Debug.LogWarning("[AuthUIController] Save profile clicked before ready.");
+            return;
+        }
 
+        if (Auth == null)
+        {
+            SetStatus("ระบบยังไม่พร้อม (Auth)");
+            Debug.LogError("[AuthUIController] Auth service is null in OnSaveProfileClicked");
+            return;
+        }
+
+        if (Repo == null)
+        {
+            SetStatus("ระบบยังไม่พร้อม (Profiles)");
+            Debug.LogError("[AuthUIController] Profile repository is null in OnSaveProfileClicked");
+            return;
+        }
+
+        var uid = Auth.CurrentUserId;
+        if (string.IsNullOrEmpty(uid))
+        {
+            SetStatus("กรุณาเข้าสู่ระบบก่อน");
+            Debug.LogError("[AuthUIController] CurrentUserId is null/empty");
+            return;
+        }
+
+        var p = ParseProfileFromUI();
+
+        try
+        {
+            await Repo.SaveAsync(uid, p);
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError("[AuthUIController] SaveAsync failed: " + ex);
+            SetStatus("ไม่สามารถบันทึกโปรไฟล์ได้");
+            return;
+        }
+
+        SetStatus("โปรไฟล์ถูกบันทึกแล้ว");
+
+        if (addInfoPanel) addInfoPanel.SetActive(false);
+
+        if (!string.IsNullOrEmpty(sceneToLoadOnSuccess))
+        {
+            SceneManager.LoadScene(sceneToLoadOnSuccess);
+        }
     }
 
+    // ---------- Helpers ----------
+
     UserProfile ParseProfileFromUI()
-{
-    string Clean(string s) => string.IsNullOrWhiteSpace(s) ? null : s.Trim();
+    {
+        string Clean(string s) => string.IsNullOrWhiteSpace(s) ? null : s.Trim();
 
-    var p = new UserProfile {
-        displayName = Clean(nameInput?.text),
-        phone       = Clean(phoneInput?.text),
-        career      = Clean(careerInput?.text)
-    };
-    if (int.TryParse(ageInput?.text, out var age))           p.age = Mathf.Clamp(age, 0, 120);
-    if (double.TryParse(weightInput?.text, out var w))       p.weightKg = Math.Max(0, w);
-    if (double.TryParse(heightInput?.text, out var h))       p.heightCm = Math.Max(0, h);
-    if (double.TryParse(glucoseInput?.text, out var g))      p.bloodGlucoseMgDl = Math.Max(0, g);
-    return p;
-}
+        var p = new UserProfile
+        {
+            displayName = Clean(nameInput ? nameInput.text : null),
+            phone       = Clean(phoneInput ? phoneInput.text : null),
+            career      = Clean(careerInput ? careerInput.text : null)
+        };
 
-    void SetStatus(string m) { if (statusText) statusText.text = m; Debug.Log(m); }
+        if (int.TryParse(ageInput ? ageInput.text : null, out var age))
+            p.age = Mathf.Clamp(age, 0, 120);
+
+        if (double.TryParse(weightInput ? weightInput.text : null, out var w))
+            p.weightKg = Math.Max(0, w);
+
+        if (double.TryParse(heightInput ? heightInput.text : null, out var h))
+            p.heightCm = Math.Max(0, h);
+
+        if (double.TryParse(glucoseInput ? glucoseInput.text : null, out var g))
+            p.bloodGlucoseMgDl = Math.Max(0, g);
+
+        return p;
+    }
+
+    void SetStatus(string m)
+    {
+        if (statusText) statusText.text = m;
+        Debug.Log("[AuthUI] " + m);
+    }
 }

@@ -24,7 +24,6 @@ public class SignOutButton : MonoBehaviour
         if (statusText != null)
             statusText.text = "Signed out";
 
-        // 🔥 Important for Android — return to login scene
         if (!string.IsNullOrEmpty(loginSceneName))
         {
             SceneManager.LoadScene(loginSceneName);

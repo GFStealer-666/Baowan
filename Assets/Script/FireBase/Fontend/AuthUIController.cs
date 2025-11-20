@@ -152,57 +152,63 @@ public class AuthUIController : MonoBehaviour
 
     public async void OnSaveProfileClicked()
     {
-        if (!_ready)
-        {
-            SetStatus("ระบบยังไม่พร้อม กรุณาลองใหม่อีกครั้ง");
-            Debug.LogWarning("[AuthUIController] Save profile clicked before ready.");
-            return;
-        }
+        // Take local refs so we don't call the property twice
+        var auth = Auth;
+        var repo = Repo;
 
-        if (Auth == null)
+        // 1) Check services first
+        if (auth == null)
         {
+            Debug.LogError("[AuthUIController] Auth service is NULL in OnSaveProfileClicked");
             SetStatus("ระบบยังไม่พร้อม (Auth)");
-            Debug.LogError("[AuthUIController] Auth service is null in OnSaveProfileClicked");
             return;
         }
 
-        if (Repo == null)
+        if (repo == null)
         {
-            SetStatus("ระบบยังไม่พร้อม (Profiles)");
-            Debug.LogError("[AuthUIController] Profile repository is null in OnSaveProfileClicked");
+            Debug.LogError("[AuthUIController] Profile repository is NULL in OnSaveProfileClicked");
+            SetStatus("ระบบยังไม่พร้อม (Profile)");
             return;
         }
 
-        var uid = Auth.CurrentUserId;
+        // 2) Check current user
+        var uid = auth.CurrentUserId;
         if (string.IsNullOrEmpty(uid))
         {
+            Debug.LogError("[AuthUIController] CurrentUserId is null/empty in OnSaveProfileClicked");
             SetStatus("กรุณาเข้าสู่ระบบก่อน");
-            Debug.LogError("[AuthUIController] CurrentUserId is null/empty");
             return;
         }
 
+        // 3) Build profile object from UI
         var p = ParseProfileFromUI();
 
+        // 4) Try to save, catch exceptions instead of crashing
         try
         {
-            await Repo.SaveAsync(uid, p);
+            await repo.SaveAsync(uid, p);
         }
         catch (Exception ex)
         {
-            Debug.LogError("[AuthUIController] SaveAsync failed: " + ex);
+            Debug.LogError("[AuthUIController] Repo.SaveAsync failed: " + ex);
             SetStatus("ไม่สามารถบันทึกโปรไฟล์ได้");
             return;
         }
 
+        // 5) Update UI and go to next scene
         SetStatus("โปรไฟล์ถูกบันทึกแล้ว");
 
-        if (addInfoPanel) addInfoPanel.SetActive(false);
+        if (addInfoPanel != null)
+            addInfoPanel.SetActive(false);
+        else
+            Debug.LogWarning("[AuthUIController] addInfoPanel is not assigned in inspector");
 
         if (!string.IsNullOrEmpty(sceneToLoadOnSuccess))
-        {
             SceneManager.LoadScene(sceneToLoadOnSuccess);
-        }
+        else
+            Debug.LogWarning("[AuthUIController] sceneToLoadOnSuccess is empty");
     }
+
 
     // ---------- Helpers ----------
 

@@ -13,9 +13,14 @@ public class AuthService : MonoBehaviour
     public static event Action OnSignOut;
     void Awake()
     {
-        if (Instance != null) { Destroy(gameObject); return; }
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
         Instance = this;
         DontDestroyOnLoad(gameObject);
+
     }
 
     async void Start()
@@ -201,6 +206,21 @@ public class AuthService : MonoBehaviour
     {
         Auth.SignOut();
         OnSignOut?.Invoke();
+
+        try
+        {
+            FirebaseAuth.DefaultInstance.SignOut();
+            // Clear local cache if you have any:
+            PlayerPrefs.DeleteKey("user_email");
+            PlayerPrefs.DeleteKey("user_name");
+            PlayerPrefs.Save();
+
+            Debug.Log("[AuthService] SignOut success.");
+        }
+        catch (System.Exception ex)
+        {
+            Debug.LogError($"[AuthService] SignOut error: {ex}");
+        }
     }
 
     string ParseFirebaseError(Exception ex)

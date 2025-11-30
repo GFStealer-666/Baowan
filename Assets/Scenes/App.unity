@@ -1474,6 +1474,7 @@ MonoBehaviour:
   noodleToggle: {fileID: 62180176}
   beverageToggle: {fileID: 2068298791}
   fruitToggle: {fileID: 1618976974}
+  filterGroup: {fileID: 131506991}
   defaultRandomCount: 10
 --- !u!1 &51273911
 GameObject:
@@ -1625,10 +1626,10 @@ RectTransform:
   - {fileID: 1797879476}
   m_Father: {fileID: 131506989}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 278.28998, y: -125}
+  m_SizeDelta: {x: 300, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &62180174
 MonoBehaviour:
@@ -1690,12 +1691,12 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.5924529, g: 0.5924529, b: 0.5924529, a: 1}
-    m_DisabledColor: {r: 0.5396226, g: 0.5396226, b: 0.5396226, a: 0.5019608}
+    m_DisabledColor: {r: 0.5396226, g: 0.5396226, b: 0.5396226, a: 1}
     m_ColorMultiplier: 1
-    m_FadeDuration: 0.3
+    m_FadeDuration: 0.1
   m_SpriteState:
     m_HighlightedSprite: {fileID: 0}
     m_PressedSprite: {fileID: 0}
@@ -1709,9 +1710,9 @@ MonoBehaviour:
     m_DisabledTrigger: Disabled
   m_Interactable: 1
   m_TargetGraphic: {fileID: 62180174}
-  toggleTransition: 1
-  graphic: {fileID: 62180174}
-  m_Group: {fileID: 0}
+  toggleTransition: 0
+  graphic: {fileID: 0}
+  m_Group: {fileID: 131506991}
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -2641,6 +2642,7 @@ GameObject:
   m_Component:
   - component: {fileID: 131506989}
   - component: {fileID: 131506990}
+  - component: {fileID: 131506991}
   m_Layer: 5
   m_Name: ButtonParent
   m_TagString: Untagged
@@ -2678,7 +2680,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 131506988}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
   m_Name: 
@@ -2695,6 +2697,19 @@ MonoBehaviour:
   m_Spacing: {x: -56.58, y: 0}
   m_Constraint: 2
   m_ConstraintCount: 1
+--- !u!114 &131506991
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 131506988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fafe2cfe61f6974895a912c3755e8f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AllowSwitchOff: 0
 --- !u!1 &137773851
 GameObject:
   m_ObjectHideFlags: 0
@@ -14157,6 +14172,18 @@ MonoBehaviour:
       - m_Target: {fileID: 51182346}
         m_TargetAssemblyTypeName: FoodDatabase, Assembly-CSharp
         m_MethodName: LoadAll
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 51182349}
+        m_TargetAssemblyTypeName: FoodListController, Assembly-CSharp
+        m_MethodName: ToggleOn
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -28702,10 +28729,10 @@ RectTransform:
   - {fileID: 1840322675}
   m_Father: {fileID: 131506989}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 765.13, y: -125}
+  m_SizeDelta: {x: 300, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1618976972
 MonoBehaviour:
@@ -28767,12 +28794,12 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.5924529, g: 0.5924529, b: 0.5924529, a: 1}
-    m_DisabledColor: {r: 0.5396226, g: 0.5396226, b: 0.5396226, a: 0.5019608}
+    m_DisabledColor: {r: 0.5396226, g: 0.5396226, b: 0.5396226, a: 1}
     m_ColorMultiplier: 1
-    m_FadeDuration: 0.3
+    m_FadeDuration: 0.1
   m_SpriteState:
     m_HighlightedSprite: {fileID: 0}
     m_PressedSprite: {fileID: 0}
@@ -28786,9 +28813,9 @@ MonoBehaviour:
     m_DisabledTrigger: Disabled
   m_Interactable: 1
   m_TargetGraphic: {fileID: 1618976972}
-  toggleTransition: 1
-  graphic: {fileID: 1618976972}
-  m_Group: {fileID: 0}
+  toggleTransition: 0
+  graphic: {fileID: 0}
+  m_Group: {fileID: 131506991}
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -35011,10 +35038,10 @@ RectTransform:
   - {fileID: 1713582536}
   m_Father: {fileID: 131506989}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 521.70996, y: -125}
+  m_SizeDelta: {x: 300, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2068298789
 MonoBehaviour:
@@ -35076,12 +35103,12 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.5924529, g: 0.5924529, b: 0.5924529, a: 1}
-    m_DisabledColor: {r: 0.5396226, g: 0.5396226, b: 0.5396226, a: 0.5019608}
+    m_DisabledColor: {r: 0.5396226, g: 0.5396226, b: 0.5396226, a: 1}
     m_ColorMultiplier: 1
-    m_FadeDuration: 0.3
+    m_FadeDuration: 0.1
   m_SpriteState:
     m_HighlightedSprite: {fileID: 0}
     m_PressedSprite: {fileID: 0}
@@ -35095,9 +35122,9 @@ MonoBehaviour:
     m_DisabledTrigger: Disabled
   m_Interactable: 1
   m_TargetGraphic: {fileID: 2068298789}
-  toggleTransition: 1
-  graphic: {fileID: 2068298789}
-  m_Group: {fileID: 0}
+  toggleTransition: 0
+  graphic: {fileID: 0}
+  m_Group: {fileID: 131506991}
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -36115,10 +36142,10 @@ RectTransform:
   - {fileID: 1534841112}
   m_Father: {fileID: 131506989}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 34.869995, y: -125}
+  m_SizeDelta: {x: 300, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2117117859
 MonoBehaviour:
@@ -36180,12 +36207,12 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
+    m_PressedColor: {r: 0.7433963, g: 0.7433963, b: 0.7433963, a: 1}
     m_SelectedColor: {r: 0.5924529, g: 0.5924529, b: 0.5924529, a: 1}
-    m_DisabledColor: {r: 0.5396226, g: 0.5396226, b: 0.5396226, a: 0.5019608}
+    m_DisabledColor: {r: 0.5396226, g: 0.5396226, b: 0.5396226, a: 1}
     m_ColorMultiplier: 1
-    m_FadeDuration: 0.3
+    m_FadeDuration: 0.1
   m_SpriteState:
     m_HighlightedSprite: {fileID: 0}
     m_PressedSprite: {fileID: 0}
@@ -36199,9 +36226,9 @@ MonoBehaviour:
     m_DisabledTrigger: Disabled
   m_Interactable: 1
   m_TargetGraphic: {fileID: 2117117859}
-  toggleTransition: 1
-  graphic: {fileID: 2117117859}
-  m_Group: {fileID: 0}
+  toggleTransition: 0
+  graphic: {fileID: 0}
+  m_Group: {fileID: 131506991}
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []

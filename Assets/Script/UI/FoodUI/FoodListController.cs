@@ -8,7 +8,7 @@ public class FoodListController : MonoBehaviour
 {
     [Header("UI")]
     public TMP_InputField searchInput;
-    public Transform listContent;          // parent under a ScrollView content
+    public Transform listContent;
     public GameObject listItemPrefab;
     public FoodDetailView detailView;
 
@@ -18,19 +18,27 @@ public class FoodListController : MonoBehaviour
     public Toggle beverageToggle;
     public Toggle fruitToggle;
 
+    [Header("Filter Group")]
+    public ToggleGroup filterGroup;   // ← assign in Inspector
+
     [Header("Defaults")]
     public int defaultRandomCount = 10;
 
     private readonly List<GameObject> _spawned = new();
     private ConsumeType? _activeFilter = null;
 
-
     void Start()
     {
-    // Ensure visible toggles
-        foreach (var t in new[] { riceToggle, noodleToggle, beverageToggle, fruitToggle })
+        // Setup ToggleGroup (safety)
+        if (filterGroup != null)
         {
-            
+            filterGroup.allowSwitchOff = true; // allow "no filter" state
+
+            foreach (var t in new[] { riceToggle, noodleToggle, beverageToggle, fruitToggle })
+            {
+                if (t == null) continue;
+                t.group = filterGroup;
+            }
         }
 
         // Default results: random 10
@@ -42,15 +50,26 @@ public class FoodListController : MonoBehaviour
         if (noodleToggle)   noodleToggle.onValueChanged.AddListener(_ => OnToggleChanged());
         if (beverageToggle) beverageToggle.onValueChanged.AddListener(_ => OnToggleChanged());
         if (fruitToggle)    fruitToggle.onValueChanged.AddListener(_ => OnToggleChanged());
-}
+    }
+
+    // Instead of turning everything ON, let's use this as "clear all filters"
+    public void ClearFilter()
+    {
+        if (filterGroup != null)
+            filterGroup.SetAllTogglesOff();   // all off → _activeFilter will be null
+
+        _activeFilter = null;
+        Refresh();
+    }
 
     void OnToggleChanged()
     {
-        _activeFilter = null; // default
-        if (riceToggle && riceToggle.isOn)         _activeFilter = ConsumeType.Rice;
-        else if (noodleToggle && noodleToggle.isOn)   _activeFilter = ConsumeType.Noodle;
+        _activeFilter = null;
+
+        if (riceToggle && riceToggle.isOn)           _activeFilter = ConsumeType.Rice;
+        else if (noodleToggle && noodleToggle.isOn)  _activeFilter = ConsumeType.Noodle;
         else if (beverageToggle && beverageToggle.isOn) _activeFilter = ConsumeType.Beverage;
-        else if (fruitToggle && fruitToggle.isOn)      _activeFilter = ConsumeType.Fruit;
+        else if (fruitToggle && fruitToggle.isOn)    _activeFilter = ConsumeType.Fruit;
 
         Refresh();
     }
@@ -69,7 +88,6 @@ public class FoodListController : MonoBehaviour
 
     void RenderItems(IEnumerable<FoodDataSO> items)
     {
-        // cleanup
         foreach (var go in _spawned) Destroy(go);
         _spawned.Clear();
 

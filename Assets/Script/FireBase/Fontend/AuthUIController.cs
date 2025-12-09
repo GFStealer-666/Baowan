@@ -19,8 +19,10 @@ public class AuthUIController : MonoBehaviour
     public string sceneToLoadOnSuccess = "App";
 
     // Services (from your service locator)
-    IAuthService Auth => Services.Auth;
+    // Services (from your service locator)
+    IAuthService Auth => Services.Auth ?? AuthService.Instance;
     IUserProfileRepository Repo => Services.Profiles;
+
 
     private bool _ready;
 
@@ -152,11 +154,17 @@ public class AuthUIController : MonoBehaviour
 
     public async void OnSaveProfileClicked()
     {
+        if (!_ready)
+        {
+            SetStatus("ระบบยังไม่พร้อม กรุณาลองใหม่อีกครั้ง");
+            Debug.LogWarning("[AuthUIController] Save profile clicked before ready.");
+            return;
+        }
+
         // Take local refs so we don't call the property twice
         var auth = Auth;
         var repo = Repo;
 
-        // 1) Check services first
         if (auth == null)
         {
             Debug.LogError("[AuthUIController] Auth service is NULL in OnSaveProfileClicked");
@@ -171,7 +179,6 @@ public class AuthUIController : MonoBehaviour
             return;
         }
 
-        // 2) Check current user
         var uid = auth.CurrentUserId;
         if (string.IsNullOrEmpty(uid))
         {
@@ -180,10 +187,8 @@ public class AuthUIController : MonoBehaviour
             return;
         }
 
-        // 3) Build profile object from UI
         var p = ParseProfileFromUI();
 
-        // 4) Try to save, catch exceptions instead of crashing
         try
         {
             await repo.SaveAsync(uid, p);
@@ -195,7 +200,6 @@ public class AuthUIController : MonoBehaviour
             return;
         }
 
-        // 5) Update UI and go to next scene
         SetStatus("โปรไฟล์ถูกบันทึกแล้ว");
 
         if (addInfoPanel != null)
@@ -208,6 +212,7 @@ public class AuthUIController : MonoBehaviour
         else
             Debug.LogWarning("[AuthUIController] sceneToLoadOnSuccess is empty");
     }
+
 
 
     // ---------- Helpers ----------

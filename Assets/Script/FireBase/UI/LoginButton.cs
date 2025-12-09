@@ -4,15 +4,9 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 
-/// <summary>
-/// Attach to a UI Button (or any GameObject). Hook the Button.OnClick to OnLoginPressed().
-/// Supports UnityEngine.UI.InputField and TextMeshPro TMP_InputField for email/password.
-/// Calls AuthService.Instance.Login(email,password) and updates optional status Text.
-/// </summary>
 public class LoginButton : MonoBehaviour
 {
     [Header("Inputs")]
-
     public TMP_InputField emailTMP;
     public TMP_InputField passwordTMP;
 
@@ -30,6 +24,9 @@ public class LoginButton : MonoBehaviour
 
     Button _button;
 
+    // Use the same pattern as AuthUIController: service locator with fallback
+    IAuthService Auth => Services.Auth ?? AuthService.Instance;
+
     void Awake()
     {
         _button = GetComponent<Button>();
@@ -37,10 +34,11 @@ public class LoginButton : MonoBehaviour
 
     public async void OnLoginPressed()
     {
-        if (AuthService.Instance == null)
+        var auth = Auth;
+        if (auth == null)
         {
-            SetStatus("ระบบยืนยันตัวตนยังไม่ถูกตั้งค่า");
-            Debug.LogWarning("AuthService.Instance is null when trying to login.");
+            SetStatus("ระบบยืนยันตัวตนยังไม่พร้อม (Auth)");
+            Debug.LogWarning("[LoginButton] Auth service is null when trying to login.");
             return;
         }
 
@@ -53,30 +51,31 @@ public class LoginButton : MonoBehaviour
             return;
         }
 
-            // disable button while signing in
-            SetInteractable(false);
-            SetStatus("กำลังเข้าสู่ระบบ...");
+        // disable button while signing in
+        SetInteractable(false);
+        SetStatus("กำลังเข้าสู่ระบบ...");
 
         try
         {
             try { email = EmailFormatter.CleanEmail(email); } catch { }
 
-            var result = await AuthService.Instance.Login(email, password);
-            var ok = result.ok;
-            var err = result.err;
+            // Call through IAuthService – implemented by AuthService
+            var (ok, err) = await auth.LoginAsync(email, password);
 
             if (ok)
             {
                 SetStatus("เข้าสู่ระบบสำเร็จ");
 
-                // Prefer showing Add Info panel if assigned
-                // if (addInfoPanel != null)
-                // {
-                //     addInfoPanel.SetActive(true);
-                //     if (hideLoginOnSuccess && loginRoot != null) loginRoot.SetActive(false);
-                //     // keep button disabled when we've moved to the add-info flow
-                //     return;
-                // }
+                // If you want the Add Info panel flow after login, uncomment this block
+                if (addInfoPanel != null)
+                {
+                    addInfoPanel.SetActive(true);
+                    if (hideLoginOnSuccess && loginRoot != null)
+                        loginRoot.SetActive(false);
+
+                    // We’re moving to another UI flow; keep button disabled
+                    return;
+                }
 
                 if (!string.IsNullOrEmpty(sceneToLoadOnSuccess))
                 {
@@ -91,25 +90,27 @@ public class LoginButton : MonoBehaviour
         }
         catch (Exception ex)
         {
-            Debug.LogError(ex);
+            Debug.LogError("[LoginButton] Login exception: " + ex);
             SetStatus("ข้อผิดพลาดการเข้าสู่ระบบ: " + ex.Message);
         }
         finally
         {
-            // If addInfoPanel was shown we returned and won't reach here; re-enable otherwise
+            // If we returned earlier for Add Info / scene load, we never reach here
             SetInteractable(true);
         }
     }
 
     string GetEmail()
     {
-        if (emailTMP != null && !string.IsNullOrEmpty(emailTMP.text)) return emailTMP.text;
+        if (emailTMP != null && !string.IsNullOrEmpty(emailTMP.text))
+            return emailTMP.text;
         return null;
     }
 
     string GetPassword()
     {
-        if (passwordTMP != null && !string.IsNullOrEmpty(passwordTMP.text)) return passwordTMP.text;
+        if (passwordTMP != null && !string.IsNullOrEmpty(passwordTMP.text))
+            return passwordTMP.text;
         return null;
     }
 

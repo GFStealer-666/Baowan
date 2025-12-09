@@ -1,10 +1,7 @@
-using System;
 using System.Threading.Tasks;
-using Firebase;
 using Firebase.Auth;
 using Firebase.Firestore;
 
-// FireBaseInitializer (backend)
 public static class Services
 {
     public static IAuthService Auth { get; private set; }
@@ -12,10 +9,21 @@ public static class Services
 
     public static async Task InitAsync()
     {
-        var dep = await FirebaseApp.CheckAndFixDependenciesAsync();
-        if (dep != DependencyStatus.Available) throw new Exception(dep.ToString());
+        // 1) Make sure Firebase is ready (only via FirebaseReady)
+        await FirebaseReady.Ensure();
 
-        Auth = new FirebaseAuthService(FirebaseAuth.DefaultInstance);
-        Profiles = new FirestoreUserProfileRepository(FirebaseFirestore.DefaultInstance);
+        // 2) Wire up service locator once
+        if (Auth == null)
+        {
+            // AuthService is the single implementation of IAuthService
+            Auth = AuthService.Instance;
+        }
+
+        if (Profiles == null)
+        {
+            Profiles = new FirestoreUserProfileRepository(
+                FirebaseFirestore.DefaultInstance
+            );
+        }
     }
 }

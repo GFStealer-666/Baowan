@@ -63,7 +63,7 @@ public class ForgotPasswordUI : MonoBehaviour
             try
             {
                 await FirebaseReady.Ensure();
-                _authService = new FirebaseAuthService(FirebaseAuth.DefaultInstance);
+                _authService = AuthService.Instance;
             }
             catch (System.Exception ex)
             {

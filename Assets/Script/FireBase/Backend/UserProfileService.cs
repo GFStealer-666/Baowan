@@ -11,12 +11,23 @@ public class UserProfileService : MonoBehaviour
 {
     public static UserProfileService Instance { get; private set; }
 
+    FirebaseFirestore _db;
+
     void Awake()
     {
-        if (Instance != null) { Destroy(gameObject); return; }
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
         Instance = this;
         DontDestroyOnLoad(gameObject);
+
+        _db = FirebaseFirestore.DefaultInstance;
     }
+
+    DocumentReference Doc(string uid) =>
+        _db.Collection("users").Document(uid);
     static async Task WaitForAuthReady(FirebaseUser expectedUser, int timeoutMs = 5000)
     {
         // Ensure CurrentUser is set and token available
@@ -59,59 +70,56 @@ public class UserProfileService : MonoBehaviour
 
     public async Task EnsureProfile(FirebaseUser user, string displayName = null, string phone = null)
     {
-        if (user == null || string.IsNullOrEmpty(user.UserId))
-        throw new ArgumentException("EnsureProfile: user or user.UserId is null/empty");
-
-        await FirebaseReady.Ensure();
-
-        // Be explicit: wait until Auth.CurrentUser is the same and token refreshed.
-        var start = Time.realtimeSinceStartup;
-        while (FirebaseAuth.DefaultInstance.CurrentUser?.UserId != user.UserId)
+        // 1) Validate user / uid – NEVER call Firestore with empty path
+        if (user == null || string.IsNullOrWhiteSpace(user.UserId))
         {
-            await Task.Yield();
-            if ((Time.realtimeSinceStartup - start) > 8f)
-                throw new TimeoutException("Auth user not ready for Firestore.");
+            Debug.LogWarning("[UserProfileService] EnsureProfile called with null user or empty uid – skipping.");
+            return;
         }
 
-        try { await user.TokenAsync(true); } catch (Exception ex) { Debug.LogWarning("[UserProfileService] Token refresh: " + ex); }
-        await Task.Delay(250); // give Firestore client a moment to pick up creds
+        var uid = user.UserId;
 
-        var db  = FirebaseFirestore.DefaultInstance;
-        var doc = db.Collection("users").Document(user.UserId);
+        // 2) Fallbacks for optional fields
+        if (string.IsNullOrWhiteSpace(displayName))
+            displayName = user.DisplayName ?? "";
+        if (string.IsNullOrWhiteSpace(phone))
+            phone = user.PhoneNumber ?? "";
 
-        var data = new Dictionary<string, object>
+        try
         {
-            { "uid", user.UserId },
-            { "displayName", string.IsNullOrWhiteSpace(displayName) ? "Player" : displayName },
-            { "email", user.Email ?? "" },
-            { "phone", phone ?? "" },
-            { "role", "user" },
-            { "createdAt", FieldValue.ServerTimestamp },
-            { "updatedAt", FieldValue.ServerTimestamp }
-        };
+            var docRef = Doc(uid);
+            var snap   = await docRef.GetSnapshotAsync();
 
-        // Retry with backoff only around the WRITE
-        int attempts = 0;
-        int[] waits = { 200, 400, 800, 1500 };
-        while (true)
+            if (!snap.Exists)
+            {
+                var data = new Dictionary<string, object>
+                {
+                    { "uid",         uid },
+                    { "displayName", displayName },
+                    { "email",       user.Email ?? "" },
+                    { "phone",       phone },
+                    { "role",        "user" },
+                    { "createdAt",   FieldValue.ServerTimestamp },
+                    { "updatedAt",   FieldValue.ServerTimestamp }
+                };
+
+                await docRef.SetAsync(data, SetOptions.MergeAll);
+            }
+            else
+            {
+                // Optional: update only changed fields
+                await docRef.SetAsync(new Dictionary<string, object>
+                {
+                    { "displayName", displayName },
+                    { "phone",       phone },
+                    { "updatedAt",   FieldValue.ServerTimestamp }
+                }, SetOptions.MergeAll);
+            }
+        }
+        catch (Exception ex)
         {
-            attempts++;
-            try
-            {
-                Debug.Log($"[UserProfileService] Set /users/{user.UserId} attempt {attempts}");
-                await doc.SetAsync(data, SetOptions.MergeAll);  // <-- creates if missing, updates if exists
-                Debug.Log("[Profile] Upserted /users/" + user.UserId);
-                break;
-            }
-            catch (Firebase.Firestore.FirestoreException fex)
-                when ((fex.ErrorCode == Firebase.Firestore.FirestoreError.PermissionDenied ||
-                    fex.ErrorCode == Firebase.Firestore.FirestoreError.Unauthenticated)
-                    && attempts <= waits.Length)
-            {
-                Debug.LogWarning($"[UserProfileService] {fex.ErrorCode} on SetAsync attempt {attempts}. Backing off {waits[attempts-1]}ms.\n{fex}");
-                try { await user.TokenAsync(true); } catch { }
-                await System.Threading.Tasks.Task.Delay(waits[attempts-1]);
-            }
+            Debug.LogError("[UserProfileService] EnsureProfile failed: " + ex);
+            throw; // so AuthService logs it as you already do
         }
     }
 
@@ -215,17 +223,5 @@ public class UserProfileService : MonoBehaviour
         var handle = displayName.Trim().ToLowerInvariant();
         var snap = await db.Collection("displayNames").Document(handle).GetSnapshotAsync();
         return snap.Exists; // true => taken
-    }
-}
-
-public static class FirebaseReady
-{
-    private static System.Threading.Tasks.Task _t;
-    public static System.Threading.Tasks.Task Ensure() => _t ??= Initialize();
-    private static async System.Threading.Tasks.Task Initialize()
-    {
-        var status = await Firebase.FirebaseApp.CheckAndFixDependenciesAsync();
-        if (status != Firebase.DependencyStatus.Available)
-            throw new System.Exception("Firebase deps not available: " + status);
     }
 }
